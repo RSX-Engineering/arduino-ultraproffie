@@ -30,7 +30,7 @@
 
 #include "armv7m.h"
 
-void stm32l4_gpio_pin_configure(unsigned int pin, unsigned int mode)
+void PF_MOVE_TO_RAM_ATT stm32l4_gpio_pin_configure(unsigned int pin, unsigned int mode)
 {
     GPIO_TypeDef *GPIO;
     uint32_t group, index, afsel;
@@ -79,7 +79,7 @@ void stm32l4_gpio_pin_configure(unsigned int pin, unsigned int mode)
     }
 }
 
-void stm32l4_gpio_pin_input(unsigned int pin)
+void PF_MOVE_TO_RAM_ATT stm32l4_gpio_pin_input(unsigned int pin)
 {
     GPIO_TypeDef *GPIO;
     uint32_t group, index;
@@ -92,7 +92,7 @@ void stm32l4_gpio_pin_input(unsigned int pin)
     armv7m_atomic_modify(&GPIO->MODER, (0x00000003 << (index << 1)), ((GPIO_MODE_INPUT >> GPIO_MODE_SHIFT) << (index << 1)));
 }
 
-void stm32l4_gpio_pin_output(unsigned int pin)
+void PF_MOVE_TO_RAM_ATT stm32l4_gpio_pin_output(unsigned int pin)
 {
     GPIO_TypeDef *GPIO;
     uint32_t group, index;
@@ -105,7 +105,7 @@ void stm32l4_gpio_pin_output(unsigned int pin)
     armv7m_atomic_modify(&GPIO->MODER, (0x00000003 << (index << 1)), ((GPIO_MODE_OUTPUT >> GPIO_MODE_SHIFT) << (index << 1)));
 }
 
-void stm32l4_gpio_pin_alternate(unsigned int pin)
+void PF_MOVE_TO_RAM_ATT stm32l4_gpio_pin_alternate(unsigned int pin)
 {
     GPIO_TypeDef *GPIO;
     uint32_t group, index;
@@ -118,7 +118,7 @@ void stm32l4_gpio_pin_alternate(unsigned int pin)
     armv7m_atomic_modify(&GPIO->MODER, (0x00000003 << (index << 1)), ((GPIO_MODE_ALTERNATE >> GPIO_MODE_SHIFT) << (index << 1)));
 }
 
-void stm32l4_gpio_pin_standby_pushpull(unsigned int pin, int mode) {
+void PF_MOVE_TO_RAM_ATT stm32l4_gpio_pin_standby_pushpull(unsigned int pin, int mode) {
   uint32_t group = (pin >> 4) & 7;
   uint32_t index = (pin >> 0) & 15;
   volatile uint32_t *up = &PWR->PUCRA + (&PWR->PUCRB - &PWR->PUCRA) * group;

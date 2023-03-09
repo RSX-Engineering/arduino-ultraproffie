@@ -57,7 +57,7 @@ typedef struct _stm32l4_system_device_t {
     uint8_t                   lsco;
     uint8_t                   lsi;
     uint8_t                   hsi16;
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
     uint8_t                   hsi48;
 #endif
     volatile uint32_t         lock[SYSTEM_LOCK_COUNT];
@@ -200,8 +200,10 @@ static uint32_t const stm32l4_system_xlate_RSTMSK[] = {
     RCC_APB1RSTR1_DAC1RST,    /* SYSTEM_PERIPH_DAC */
 #if defined(STM32L476xx) || defined(STM32L496xx)
     RCC_AHB2RSTR_OTGFSRST,    /* SYSTEM_PERIPH_USB */
-#else
+#elif !defined(STM32L431xx)
     RCC_APB1RSTR1_USBFSRST,   /* SYSTEM_PERIPH_USB */
+#else 
+	NULL,
 #endif
     RCC_APB2RSTR_USART1RST,   /* SYSTEM_PERIPH_USART1 */
     RCC_APB1RSTR1_USART2RST,  /* SYSTEM_PERIPH_USART2 */
@@ -270,7 +272,7 @@ static uint32_t const stm32l4_system_xlate_RSTMSK[] = {
     RCC_APB1RSTR2_LPTIM2RST,  /* SYSTEM_PERIPH_LPTIM2 */
 };
 
-static volatile uint32_t * const stm32l4_system_xlate_ENR[] = {
+static volatile uint32_t * const PF_MOVE_TO_RAM_CONSt_ATT stm32l4_system_xlate_ENR[] = {
     &RCC->AHB1ENR,  /* SYSTEM_PERIPH_FLASH */
     NULL,           /* SYSTEM_PERIPH_SRAM1 */
     NULL,           /* SYSTEM_PERIPH_SRAM2 */
@@ -371,7 +373,7 @@ static volatile uint32_t * const stm32l4_system_xlate_ENR[] = {
     &RCC->APB1ENR2, /* SYSTEM_PERIPH_LPTIM2 */
 };
 
-static uint32_t const stm32l4_system_xlate_ENMSK[] = {
+static uint32_t const PF_MOVE_TO_RAM_CONSt_ATT stm32l4_system_xlate_ENMSK[] = {
     RCC_AHB1ENR_FLASHEN,    /* SYSTEM_PERIPH_FLASH */
     0,                      /* SYSTEM_PERIPH_SRAM1 */
     0,                      /* SYSTEM_PERIPH_SRAM2 */
@@ -402,8 +404,10 @@ static uint32_t const stm32l4_system_xlate_ENMSK[] = {
     RCC_APB1ENR1_DAC1EN,    /* SYSTEM_PERIPH_DAC */
 #if defined(STM32L476xx) || defined(STM32L496xx)
     RCC_AHB2ENR_OTGFSEN,    /* SYSTEM_PERIPH_USB */
-#else
+#elif !defined(STM32L431xx)
     RCC_APB1ENR1_USBFSEN,   /* SYSTEM_PERIPH_USB */
+#else 
+	NULL,
 #endif
     RCC_APB2ENR_USART1EN,   /* SYSTEM_PERIPH_USART1 */
     RCC_APB1ENR1_USART2EN,  /* SYSTEM_PERIPH_USART2 */
@@ -604,8 +608,10 @@ static uint32_t const stm32l4_system_xlate_SMENMSK[] = {
     RCC_APB1SMENR1_DAC1SMEN,    /* SYSTEM_PERIPH_DAC */
 #if defined(STM32L476xx) || defined(STM32L496xx)
     RCC_AHB2SMENR_OTGFSSMEN,    /* SYSTEM_PERIPH_USB */
-#else
+#elif !defined(STM32L431xx)
     RCC_APB1SMENR1_USBFSSMEN,   /* SYSTEM_PERIPH_USB */
+#else 
+	NULL,
 #endif
     RCC_APB2SMENR_USART1SMEN,   /* SYSTEM_PERIPH_USART1 */
     RCC_APB1SMENR1_USART2SMEN,  /* SYSTEM_PERIPH_USART2 */
@@ -687,12 +693,12 @@ void stm32l4_system_periph_reset(unsigned int periph)
     armv7m_atomic_and(stm32l4_system_xlate_RSTR[periph], ~stm32l4_system_xlate_RSTMSK[periph]);
 }
 
-void stm32l4_system_periph_enable(unsigned int periph)
+void PF_MOVE_TO_RAM_ATT stm32l4_system_periph_enable(unsigned int periph)  
 {
     armv7m_atomic_or(stm32l4_system_xlate_ENR[periph], stm32l4_system_xlate_ENMSK[periph]);
 }
 
-void stm32l4_system_periph_disable(unsigned int periph)
+void PF_MOVE_TO_RAM_ATT stm32l4_system_periph_disable(unsigned int periph)
 {
     armv7m_atomic_and(stm32l4_system_xlate_ENR[periph], ~stm32l4_system_xlate_ENMSK[periph]);
 }
@@ -1043,7 +1049,7 @@ void stm32l4_system_initialize(uint32_t hclk, uint32_t pclk1, uint32_t pclk2, ui
 
     RCC->APB2SMENR  &= ~RCC_APB2SMENR_SYSCFGSMEN;
 
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)   || defined(STM32L431xx)
     RCC->APB1SMENR1 &= ~RCC_APB1SMENR1_RTCAPBSMEN;
 #endif
 
@@ -1227,7 +1233,7 @@ bool stm32l4_system_sysclk_configure(uint32_t hclk, uint32_t pclk1, uint32_t pcl
     
     FLASH->ACR = FLASH_ACR_ICEN | FLASH_ACR_DCEN | FLASH_ACR_LATENCY_4WS;
 
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
     if (stm32l4_system_device.hsi48)
     {
 	if (stm32l4_system_device.lseclk)
@@ -1247,7 +1253,7 @@ bool stm32l4_system_sysclk_configure(uint32_t hclk, uint32_t pclk1, uint32_t pcl
     }
 #endif
 
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L431xx)
     /* Disable PLLSAI1 */
     RCC->CR &= ~RCC_CR_PLLSAI1ON;
     
@@ -1452,7 +1458,7 @@ bool stm32l4_system_sysclk_configure(uint32_t hclk, uint32_t pclk1, uint32_t pcl
     
     FLASH->ACR = FLASH_ACR_ICEN | FLASH_ACR_DCEN | latency;
     
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
     if (stm32l4_system_device.saiclk)
     {
 	if (hclk <= 24000000)
@@ -1684,7 +1690,7 @@ static void stm32l4_system_select_range_2(void)
     }
 }
 
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
 
 static void stm32l4_system_hsi48_enable(void)
 {
@@ -1758,7 +1764,7 @@ static void stm32l4_system_hsi48_disable(void)
 
 void stm32l4_system_saiclk_configure(unsigned int clock)
 {
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
     RCC->PLLSAI1CFGR &= ~RCC_PLLSAI1CFGR_PLLSAI1PEN;
 
     RCC->CR &= ~RCC_CR_PLLSAI1ON;
@@ -1889,7 +1895,7 @@ void stm32l4_system_clk48_acquire(unsigned int reference)
 
     if (!stm32l4_system_device.clk48)
     {
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
 	stm32l4_system_hsi48_enable();
 #else
 	RCC->PLLSAI1CFGR |= RCC_PLLSAI1CFGR_PLLSAI1QEN;
@@ -1923,7 +1929,7 @@ void stm32l4_system_clk48_release(unsigned int reference)
     {
 	if (!(stm32l4_system_device.clk48 & ~reference))
 	{
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
 	    stm32l4_system_hsi48_disable();
 #else
 	    RCC->PLLSAI1CFGR &= ~RCC_PLLSAI1CFGR_PLLSAI1QEN;
@@ -2080,7 +2086,7 @@ void stm32l4_system_mco_configure(unsigned int mode, unsigned int divider)
 	    stm32l4_system_hsi16_disable();
 	    break;
 
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
 	case SYSTEM_MCO_MODE_HSI48:
 	    stm32l4_system_hsi48_disable();
 	    break;
@@ -2202,7 +2208,7 @@ uint32_t stm32l4_system_pclk1(void)
     return stm32l4_system_device.pclk1;
 }
 
-uint32_t stm32l4_system_pclk2(void)
+uint32_t PF_MOVE_TO_RAM_ATT stm32l4_system_pclk2(void)
 {
     return stm32l4_system_device.pclk2;
 }
@@ -2265,7 +2271,7 @@ void stm32l4_system_unlock(uint32_t lock)
 
 static void stm32l4_system_suspend(void)
 {
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
     if (stm32l4_system_device.hsi48)
     {
 	if (stm32l4_system_device.lseclk)
@@ -2390,7 +2396,7 @@ static void stm32l4_system_resume(void)
 	SystemCoreClock = stm32l4_system_device.hclk;
     }
 
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
     if (stm32l4_system_device.saiclk)
     {
 	RCC->CR |= RCC_CR_PLLSAI1ON;
@@ -2604,7 +2610,7 @@ static void stm32l4_system_deepsleep(uint32_t lpms, uint32_t config, uint32_t ti
 
     SystemCoreClock = 16000000;
 
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
     if (stm32l4_system_device.hsi48)
     {
 	if (stm32l4_system_device.lseclk)

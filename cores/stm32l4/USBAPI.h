@@ -26,6 +26,7 @@
  * WITH THE SOFTWARE.
  */
 
+#if defined(USBCON) // USBCONN
 #pragma once
 
 #include "HardwareSerial.h"
@@ -302,3 +303,4 @@ private:
 };
 
 extern KeyboardClass Keyboard;
+#endif  // USBCONN

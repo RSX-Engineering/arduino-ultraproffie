@@ -3,101 +3,9 @@ menu.dosfs=DOSFS
 menu.speed=CPU Speed
 menu.opt=Optimize
 
-# Proffieboard
-# ---------------------------------------
-Proffieboard-L433CC.name=Proffieboard
-Proffieboard-L433CC.vid.0=0x1209
-Proffieboard-L433CC.pid.0=0x6668
-
-Proffieboard-L433CC.upload.tool=stm32l4_dfu
-Proffieboard-L433CC.upload.protocol=dfu
-Proffieboard-L433CC.upload.maximum_size=262144
-Proffieboard-L433CC.upload.use_1200bps_touch=true
-Proffieboard-L433CC.upload.wait_for_upload_port=false
-Proffieboard-L433CC.upload.native_usb=false
-
-Proffieboard-L433CC.build.mcu=cortex-m4
-Proffieboard-L433CC.build.f_cpu=80000000L
-Proffieboard-L433CC.build.board=STM32L4_BUTTERLY
-Proffieboard-L433CC.build.arch=STM32L4
-Proffieboard-L433CC.build.core=stm32l4
-Proffieboard-L433CC.build.vid=0x1209
-Proffieboard-L433CC.build.pid=0x6668
-Proffieboard-L433CC.build.did=0xffff
-Proffieboard-L433CC.build.usb_manufacturer="hubbe.net"
-Proffieboard-L433CC.build.usb_product="Proffieboard"
-Proffieboard-L433CC.build.extra_flags=-DSTM32L433xx -DPROFFIEBOARD_VERSION=1 -D__FPU_PRESENT=1 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mabi=aapcs -mslow-flash-data -fsingle-precision-constant -felide-constructors -ffast-math {build.usb_flags} {build.dosfs_flags}
-Proffieboard-L433CC.build.ldscript=linker_scripts/STM32L433CC_FLASH.ld
-Proffieboard-L433CC.build.openocdscript=openocd_scripts/stm32l433cc_butterfly.cfg
-Proffieboard-L433CC.build.variant=STM32L433CC-Proffieboard
-Proffieboard-L433CC.build.variant_system_libs="-L{runtime.platform.path}/system/STM32L4xx/Lib" "-L{runtime.platform.path}/system/CMSIS/Lib" -lstm32l433 -larm_cortexM4lf_math
-Proffieboard-L433CC.build.variant_system_include="-I{runtime.platform.path}/system/CMSIS/Include" "-I{runtime.platform.path}/system/CMSIS/Device/ST/STM32L4xx/Include" "-I{runtime.platform.path}/system/STM32L4xx/Include" 
-
-Proffieboard-L433CC.menu.usb.cdc=Serial
-Proffieboard-L433CC.menu.usb.cdc.build.usb_type=USB_TYPE_CDC
-Proffieboard-L433CC.menu.usb.cdc_msc=Serial + Mass Storage
-Proffieboard-L433CC.menu.usb.cdc_msc.build.usb_type=USB_TYPE_CDC_MSC
-Proffieboard-L433CC.menu.usb.cdc_hid=Serial + Keyboard + Mouse
-Proffieboard-L433CC.menu.usb.cdc_hid.build.usb_type=USB_TYPE_CDC_HID
-Proffieboard-L433CC.menu.usb.cdc_msc_hid=Serial + Mass Storage + Keyboard + Mouse
-Proffieboard-L433CC.menu.usb.cdc_msc_hid.build.usb_type=USB_TYPE_CDC_MSC_HID
-Proffieboard-L433CC.menu.usb.cdc_dap=Serial + CMSIS-DAP
-Proffieboard-L433CC.menu.usb.cdc_dap.build.usb_type=USB_TYPE_CDC_DAP
-Proffieboard-L433CC.menu.usb.cdc_msc_dap=Serial + Mass Storage + CMSIS-DAP
-Proffieboard-L433CC.menu.usb.cdc_msc_dap.build.usb_type=USB_TYPE_CDC_MSC_DAP
-Proffieboard-L433CC.menu.usb.cdc_webusb=Serial + WebUSB
-Proffieboard-L433CC.menu.usb.cdc_webusb.build.usb_type=USB_TYPE_CDC_WEBUSB
-Proffieboard-L433CC.menu.usb.cdc_msc_webusb=Serial + Mass Storage + WebUSB
-Proffieboard-L433CC.menu.usb.cdc_msc_webusb.build.usb_type=USB_TYPE_CDC_MSC_WEBUSB
-Proffieboard-L433CC.menu.usb.none=No USB
-Proffieboard-L433CC.menu.usb.none.build.usb_type=USB_TYPE_NONE
-
-Proffieboard-L433CC.menu.dosfs.sdspi=SDCARD (SPI)
-Proffieboard-L433CC.menu.dosfs.sdspi.build.dosfs_sdcard=1
-Proffieboard-L433CC.menu.dosfs.sdspi.build.dosfs_sflash=0
-Proffieboard-L433CC.menu.dosfs.none=None
-Proffieboard-L433CC.menu.dosfs.none.build.dosfs_sdcard=0
-Proffieboard-L433CC.menu.dosfs.none.build.dosfs_sflash=0
-
-Proffieboard-L433CC.menu.speed.80=80 MHz
-Proffieboard-L433CC.menu.speed.80.build.f_cpu=80000000L
-Proffieboard-L433CC.menu.speed.72=72 MHz
-Proffieboard-L433CC.menu.speed.72.build.f_cpu=72000000L
-Proffieboard-L433CC.menu.speed.64=64 MHz
-Proffieboard-L433CC.menu.speed.64.build.f_cpu=64000000L
-Proffieboard-L433CC.menu.speed.48=48 MHz
-Proffieboard-L433CC.menu.speed.48.build.f_cpu=48000000L
-Proffieboard-L433CC.menu.speed.32=32 MHz
-Proffieboard-L433CC.menu.speed.32.build.f_cpu=32000000L
-Proffieboard-L433CC.menu.speed.24=24 MHz
-Proffieboard-L433CC.menu.speed.24.build.f_cpu=24000000L
-Proffieboard-L433CC.menu.speed.16=16 MHz (No USB)
-Proffieboard-L433CC.menu.speed.16.build.f_cpu=16000000L
-Proffieboard-L433CC.menu.speed.8=8 MHz (No USB)
-Proffieboard-L433CC.menu.speed.8.build.f_cpu=8000000L
-Proffieboard-L433CC.menu.speed.4=4 MHz (No USB)
-Proffieboard-L433CC.menu.speed.4.build.f_cpu=4000000L
-Proffieboard-L433CC.menu.speed.2=2 MHz (No USB)
-Proffieboard-L433CC.menu.speed.2.build.f_cpu=2000000L
-Proffieboard-L433CC.menu.speed.1=1 MHz (No USB)
-Proffieboard-L433CC.menu.speed.1.build.f_cpu=1000000L
-
-Proffieboard-L433CC.menu.opt.os=Smallest Code
-Proffieboard-L433CC.menu.opt.os.build.flags.optimize=-Os
-Proffieboard-L433CC.menu.opt.os.build.flags.ldspecs=--specs=nano.specs
-Proffieboard-L433CC.menu.opt.o1=Fast
-Proffieboard-L433CC.menu.opt.o1.build.flags.optimize=-O1
-Proffieboard-L433CC.menu.opt.o1.build.flags.ldspecs=
-Proffieboard-L433CC.menu.opt.o2=Faster
-Proffieboard-L433CC.menu.opt.o2.build.flags.optimize=-O2
-Proffieboard-L433CC.menu.opt.o2.build.flags.ldspecs=
-Proffieboard-L433CC.menu.opt.o3=Fastest
-Proffieboard-L433CC.menu.opt.o3.build.flags.optimize=-O3
-Proffieboard-L433CC.menu.opt.o3.build.flags.ldspecs=
-
-
 ##############################################################
-
+# Proffieboard V2
+# ---------------------------------------
 ProffieboardV2-L433CC.name=Proffieboard V2
 ProffieboardV2-L433CC.vid.0=0x1209
 ProffieboardV2-L433CC.pid.0=0x6668
@@ -188,606 +96,253 @@ ProffieboardV2-L433CC.menu.opt.o3=Fastest
 ProffieboardV2-L433CC.menu.opt.o3.build.flags.optimize=-O3
 ProffieboardV2-L433CC.menu.opt.o3.build.flags.ldspecs=
 
-##############################################################
-
-# ST ProffieboardV3-L452RE
-# ---------------------------------------
-ProffieboardV3-L452RE.name=Proffieboard V3
-ProffieboardV3-L452RE.vid.0=0x1209
-ProffieboardV3-L452RE.pid.0=0x6668
-
-ProffieboardV3-L452RE.upload.tool=stm32l4_dfu
-ProffieboardV3-L452RE.upload.protocol=dfu
-ProffieboardV3-L452RE.upload.maximum_size=507904
-ProffieboardV3-L452RE.upload.use_1200bps_touch=true
-ProffieboardV3-L452RE.upload.wait_for_upload_port=false
-ProffieboardV3-L452RE.upload.native_usb=false
-
-ProffieboardV3-L452RE.build.mcu=cortex-m4
-ProffieboardV3-L452RE.build.f_cpu=80000000L
-ProffieboardV3-L452RE.build.board=PROFFIEBOARD_V3
-ProffieboardV3-L452RE.build.arch=STM32L4
-ProffieboardV3-L452RE.build.core=stm32l4
-ProffieboardV3-L452RE.build.vid=0x1209
-ProffieboardV3-L452RE.build.pid=0x6668
-ProffieboardV3-L452RE.build.did=0xffff
-ProffieboardV3-L452RE.build.usb_manufacturer="hubbe.net"
-ProffieboardV3-L452RE.build.usb_product="Proffieboard"
-ProffieboardV3-L452RE.build.extra_flags=-DSTM32L452xx -DPROFFIEBOARD_VERSION=3 -D__FPU_PRESENT=1 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mabi=aapcs -mslow-flash-data -fsingle-precision-constant -felide-constructors -ffast-math {build.usb_flags} {build.dosfs_flags}
-ProffieboardV3-L452RE.build.ldscript=linker_scripts/STM32L452RE_FLASH.ld
-ProffieboardV3-L452RE.build.openocdscript=openocd_scripts/stm32l452re.cfg
-ProffieboardV3-L452RE.build.variant=STM32L452RE-ProffieboardV3
-ProffieboardV3-L452RE.build.variant_system_libs="-L{runtime.platform.path}/system/STM32L4xx/Lib" "-L{runtime.platform.path}/system/CMSIS/Lib" -lstm32l452 -larm_cortexM4lf_math
-ProffieboardV3-L452RE.build.variant_system_include="-I{runtime.platform.path}/system/CMSIS/Include" "-I{runtime.platform.path}/system/CMSIS/Device/ST/STM32L4xx/Include" "-I{runtime.platform.path}/system/STM32L4xx/Include" 
-
-ProffieboardV3-L452RE.menu.usb.cdc=Serial
-ProffieboardV3-L452RE.menu.usb.cdc.build.usb_type=USB_TYPE_CDC
-ProffieboardV3-L452RE.menu.usb.cdc_msc=Serial + Mass Storage
-ProffieboardV3-L452RE.menu.usb.cdc_msc.build.usb_type=USB_TYPE_CDC_MSC
-ProffieboardV3-L452RE.menu.usb.cdc_hid=Serial + Keyboard + Mouse
-ProffieboardV3-L452RE.menu.usb.cdc_hid.build.usb_type=USB_TYPE_CDC_HID
-ProffieboardV3-L452RE.menu.usb.cdc_msc_hid=Serial + Mass Storage + Keyboard + Mouse
-ProffieboardV3-L452RE.menu.usb.cdc_msc_hid.build.usb_type=USB_TYPE_CDC_MSC_HID
-ProffieboardV3-L452RE.menu.usb.cdc_dap=Serial + CMSIS-DAP
-ProffieboardV3-L452RE.menu.usb.cdc_dap.build.usb_type=USB_TYPE_CDC_DAP
-ProffieboardV3-L452RE.menu.usb.cdc_msc_dap=Serial + Mass Storage + CMSIS-DAP
-ProffieboardV3-L452RE.menu.usb.cdc_msc_dap.build.usb_type=USB_TYPE_CDC_MSC_DAP
-ProffieboardV3-L452RE.menu.usb.cdc_webusb=Serial + WebUSB
-ProffieboardV3-L452RE.menu.usb.cdc_webusb.build.usb_type=USB_TYPE_CDC_WEBUSB
-ProffieboardV3-L452RE.menu.usb.cdc_msc_webusb=Serial + Mass Storage + WebUSB
-ProffieboardV3-L452RE.menu.usb.cdc_msc_webusb.build.usb_type=USB_TYPE_CDC_MSC_WEBUSB
-ProffieboardV3-L452RE.menu.usb.none=No USB
-ProffieboardV3-L452RE.menu.usb.none.build.usb_type=USB_TYPE_NONE
-
-ProffieboardV3-L452RE.menu.dosfs.sdspi=SDCARD (SPI)
-ProffieboardV3-L452RE.menu.dosfs.sdspi.build.dosfs_sdcard=1
-ProffieboardV3-L452RE.menu.dosfs.sdspi.build.dosfs_sflash=0
-ProffieboardV3-L452RE.menu.dosfs.none=None
-ProffieboardV3-L452RE.menu.dosfs.none.build.dosfs_sdcard=0
-ProffieboardV3-L452RE.menu.dosfs.none.build.dosfs_sflash=0
-ProffieboardV3-L452RE.menu.dosfs.sdmmc=SDCARD (SDIO Default Speed)
-ProffieboardV3-L452RE.menu.dosfs.sdmmc.build.dosfs_sdcard=2
-ProffieboardV3-L452RE.menu.dosfs.sdmmc.build.dosfs_sflash=0
-ProffieboardV3-L452RE.menu.dosfs.sdmmc1=SDCARD (SDIO High Speed)
-ProffieboardV3-L452RE.menu.dosfs.sdmmc1.build.dosfs_sdcard=3
-ProffieboardV3-L452RE.menu.dosfs.sdmmc1.build.dosfs_sflash=0
-
-ProffieboardV3-L452RE.menu.speed.80=80 MHz
-ProffieboardV3-L452RE.menu.speed.80.build.f_cpu=80000000L
-ProffieboardV3-L452RE.menu.speed.72=72 MHz
-ProffieboardV3-L452RE.menu.speed.72.build.f_cpu=72000000L
-ProffieboardV3-L452RE.menu.speed.64=64 MHz
-ProffieboardV3-L452RE.menu.speed.64.build.f_cpu=64000000L
-ProffieboardV3-L452RE.menu.speed.48=48 MHz
-ProffieboardV3-L452RE.menu.speed.48.build.f_cpu=48000000L
-ProffieboardV3-L452RE.menu.speed.32=32 MHz
-ProffieboardV3-L452RE.menu.speed.32.build.f_cpu=32000000L
-ProffieboardV3-L452RE.menu.speed.24=24 MHz
-ProffieboardV3-L452RE.menu.speed.24.build.f_cpu=24000000L
-ProffieboardV3-L452RE.menu.speed.16=16 MHz (No USB)
-ProffieboardV3-L452RE.menu.speed.16.build.f_cpu=16000000L
-ProffieboardV3-L452RE.menu.speed.8=8 MHz (No USB)
-ProffieboardV3-L452RE.menu.speed.8.build.f_cpu=8000000L
-ProffieboardV3-L452RE.menu.speed.4=4 MHz (No USB)
-ProffieboardV3-L452RE.menu.speed.4.build.f_cpu=4000000L
-ProffieboardV3-L452RE.menu.speed.2=2 MHz (No USB)
-ProffieboardV3-L452RE.menu.speed.2.build.f_cpu=2000000L
-ProffieboardV3-L452RE.menu.speed.1=1 MHz (No USB)
-ProffieboardV3-L452RE.menu.speed.1.build.f_cpu=1000000L
-
-ProffieboardV3-L452RE.menu.opt.os=Smallest Code
-ProffieboardV3-L452RE.menu.opt.os.build.flags.optimize=-Os
-ProffieboardV3-L452RE.menu.opt.os.build.flags.ldspecs=--specs=nano.specs
-ProffieboardV3-L452RE.menu.opt.o1=Fast
-ProffieboardV3-L452RE.menu.opt.o1.build.flags.optimize=-O1
-ProffieboardV3-L452RE.menu.opt.o1.build.flags.ldspecs=
-ProffieboardV3-L452RE.menu.opt.o2=Faster
-ProffieboardV3-L452RE.menu.opt.o2.build.flags.optimize=-O2
-ProffieboardV3-L452RE.menu.opt.o2.build.flags.ldspecs=
-ProffieboardV3-L452RE.menu.opt.o3=Fastest
-ProffieboardV3-L452RE.menu.opt.o3.build.flags.optimize=-O3
-ProffieboardV3-L452RE.menu.opt.o3.build.flags.ldspecs=
 
 ##############################################################
-
-# Tlera Dragonfly
+# ST UltraProffieLite-L431CC
 # ---------------------------------------
-Dragonfly-L476RE.name=Dragonfly-L476RE
-Dragonfly-L476RE.vid.0=0x1209
-Dragonfly-L476RE.pid.0=0x6667
+menu.boardVersion=Board Version
+menu.operatingSys=Operating System
+menu.prop=Prop
+menu.SupportedBlades=Supported blades
+menu.tdeveloper=Developer Mode
+menu.zdiagnoseMode=Diagnose Mode
 
-Dragonfly-L476RE.upload.tool=stm32l4_dfu
-Dragonfly-L476RE.upload.protocol=dfu
-Dragonfly-L476RE.upload.maximum_size=507904
-Dragonfly-L476RE.upload.use_1200bps_touch=true
-Dragonfly-L476RE.upload.wait_for_upload_port=false
-Dragonfly-L476RE.upload.native_usb=false
+UltraProffieLite-L431CC.build.dosfs_sdcard=1
+UltraProffieLite-L431CC.build.dosfs_sflash=0
 
-Dragonfly-L476RE.build.mcu=cortex-m4
-Dragonfly-L476RE.build.f_cpu=80000000L
-Dragonfly-L476RE.build.board=STM32L4_DRAGONFLY
-Dragonfly-L476RE.build.arch=STM32L4
-Dragonfly-L476RE.build.core=stm32l4
-Dragonfly-L476RE.build.vid=0x1209
-Dragonfly-L476RE.build.pid=0x6667
-Dragonfly-L476RE.build.did=0xffff
-Dragonfly-L476RE.build.usb_manufacturer="Tlera Corporation"
-Dragonfly-L476RE.build.usb_product="Dragonfly"
-Dragonfly-L476RE.build.extra_flags=-DSTM32L476xx -D__FPU_PRESENT=1 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mabi=aapcs -mslow-flash-data -fsingle-precision-constant {build.usb_flags} {build.dosfs_flags}
-Dragonfly-L476RE.build.ldscript=linker_scripts/STM32L476RE_FLASH.ld
-Dragonfly-L476RE.build.openocdscript=openocd_scripts/stm32l476re_dragonfly.cfg
-Dragonfly-L476RE.build.variant=STM32L476RE-Dragonfly
-Dragonfly-L476RE.build.variant_system_libs="-L{runtime.platform.path}/system/STM32L4xx/Lib" "-L{runtime.platform.path}/system/CMSIS/Lib" -lstm32l476 -larm_cortexM4lf_math
-Dragonfly-L476RE.build.variant_system_include="-I{runtime.platform.path}/system/CMSIS/Include" "-I{runtime.platform.path}/system/CMSIS/Device/ST/STM32L4xx/Include" "-I{runtime.platform.path}/system/STM32L4xx/Include" 
+UltraProffieLite-L431CC.menu.boardVersion.HWVER1=PL31L
+UltraProffieLite-L431CC.menu.boardVersion.HWVER1.bv.selection=L31L
+UltraProffieLite-L431CC.menu.boardVersion.HWVER1.bv.audio=3
+UltraProffieLite-L431CC.menu.boardVersion.HWVER1.bv.charger=1
+UltraProffieLite-L431CC.menu.boardVersion.HWVER1.bv.sns=L
+UltraProffieLite-L431CC.menu.boardVersion.HWVER1.bv.pwmch=4
+UltraProffieLite-L431CC.menu.boardVersion.HWVER1.bv.booster=1
 
-Dragonfly-L476RE.menu.usb.cdc=Serial
-Dragonfly-L476RE.menu.usb.cdc.build.usb_type=USB_TYPE_CDC
-Dragonfly-L476RE.menu.usb.cdc_msc=Serial + Mass Storage
-Dragonfly-L476RE.menu.usb.cdc_msc.build.usb_type=USB_TYPE_CDC_MSC
-Dragonfly-L476RE.menu.usb.cdc_hid=Serial + Keyboard + Mouse
-Dragonfly-L476RE.menu.usb.cdc_hid.build.usb_type=USB_TYPE_CDC_HID
-Dragonfly-L476RE.menu.usb.cdc_msc_hid=Serial + Mass Storage + Keyboard + Mouse
-Dragonfly-L476RE.menu.usb.cdc_msc_hid.build.usb_type=USB_TYPE_CDC_MSC_HID
-Dragonfly-L476RE.menu.usb.none=No USB
-Dragonfly-L476RE.menu.usb.none.build.usb_type=USB_TYPE_NONE
+UltraProffieLite-L431CC.menu.boardVersion.HWVER2=PL30L
+UltraProffieLite-L431CC.menu.boardVersion.HWVER2.bv.selection=L30L
+UltraProffieLite-L431CC.menu.boardVersion.HWVER2.bv.audio=3
+UltraProffieLite-L431CC.menu.boardVersion.HWVER2.bv.charger=0
+UltraProffieLite-L431CC.menu.boardVersion.HWVER2.bv.sns=L
+UltraProffieLite-L431CC.menu.boardVersion.HWVER2.bv.pwmch=4
+UltraProffieLite-L431CC.menu.boardVersion.HWVER2.bv.booster=1
 
-Dragonfly-L476RE.menu.dosfs.sflash=SFLASH (QSPI)
-Dragonfly-L476RE.menu.dosfs.sflash.build.dosfs_sdcard=0
-Dragonfly-L476RE.menu.dosfs.sflash.build.dosfs_sflash=2
-Dragonfly-L476RE.menu.dosfs.sdspi=SDCARD (SPI)
-Dragonfly-L476RE.menu.dosfs.sdspi.build.dosfs_sdcard=1
-Dragonfly-L476RE.menu.dosfs.sdspi.build.dosfs_sflash=0
-Dragonfly-L476RE.menu.dosfs.sdmmc=SDCARD (SDIO Default Speed)
-Dragonfly-L476RE.menu.dosfs.sdmmc.build.dosfs_sdcard=2
-Dragonfly-L476RE.menu.dosfs.sdmmc.build.dosfs_sflash=0
-Dragonfly-L476RE.menu.dosfs.sdmmc1=SDCARD (SDIO High Speed)
-Dragonfly-L476RE.menu.dosfs.sdmmc1.build.dosfs_sdcard=3
-Dragonfly-L476RE.menu.dosfs.sdmmc1.build.dosfs_sflash=0
-Dragonfly-L476RE.menu.dosfs.none=None
-Dragonfly-L476RE.menu.dosfs.none.build.dosfs_sdcard=0
-Dragonfly-L476RE.menu.dosfs.none.build.dosfs_sflash=0
+UltraProffieLite-L431CC.menu.boardVersion.HWVER3=PL21L
+UltraProffieLite-L431CC.menu.boardVersion.HWVER3.bv.selection=L21L
+UltraProffieLite-L431CC.menu.boardVersion.HWVER3.bv.audio=2
+UltraProffieLite-L431CC.menu.boardVersion.HWVER3.bv.charger=1
+UltraProffieLite-L431CC.menu.boardVersion.HWVER3.bv.sns=L
+UltraProffieLite-L431CC.menu.boardVersion.HWVER3.bv.pwmch=4
+UltraProffieLite-L431CC.menu.boardVersion.HWVER3.bv.booster=0
 
-Dragonfly-L476RE.menu.speed.80=80 MHz
-Dragonfly-L476RE.menu.speed.80.build.f_cpu=80000000L
-Dragonfly-L476RE.menu.speed.72=72 MHz
-Dragonfly-L476RE.menu.speed.72.build.f_cpu=72000000L
-Dragonfly-L476RE.menu.speed.64=64 MHz
-Dragonfly-L476RE.menu.speed.64.build.f_cpu=64000000L
-Dragonfly-L476RE.menu.speed.48=48 MHz
-Dragonfly-L476RE.menu.speed.48.build.f_cpu=48000000L
-Dragonfly-L476RE.menu.speed.32=32 MHz
-Dragonfly-L476RE.menu.speed.32.build.f_cpu=32000000L
-Dragonfly-L476RE.menu.speed.24=24 MHz
-Dragonfly-L476RE.menu.speed.24.build.f_cpu=24000000L
-Dragonfly-L476RE.menu.speed.16=16 MHz
-Dragonfly-L476RE.menu.speed.16.build.f_cpu=16000000L
-Dragonfly-L476RE.menu.speed.8=8 MHz (No USB)
-Dragonfly-L476RE.menu.speed.8.build.f_cpu=8000000L
-Dragonfly-L476RE.menu.speed.4=4 MHz (No USB)
-Dragonfly-L476RE.menu.speed.4.build.f_cpu=4000000L
-Dragonfly-L476RE.menu.speed.2=2 MHz (No USB)
-Dragonfly-L476RE.menu.speed.2.build.f_cpu=2000000L
-Dragonfly-L476RE.menu.speed.1=1 MHz (No USB)
-Dragonfly-L476RE.menu.speed.1.build.f_cpu=1000000L
+UltraProffieLite-L431CC.menu.boardVersion.HWVER4=PL20L
+UltraProffieLite-L431CC.menu.boardVersion.HWVER4.bv.selection=L20L
+UltraProffieLite-L431CC.menu.boardVersion.HWVER4.bv.audio=2
+UltraProffieLite-L431CC.menu.boardVersion.HWVER4.bv.charger=0
+UltraProffieLite-L431CC.menu.boardVersion.HWVER4.bv.sns=L
+UltraProffieLite-L431CC.menu.boardVersion.HWVER4.bv.pwmch=4
+UltraProffieLite-L431CC.menu.boardVersion.HWVER4.bv.booster=0
 
-Dragonfly-L476RE.menu.opt.os=Smallest Code
-Dragonfly-L476RE.menu.opt.os.build.flags.optimize=-Os
-Dragonfly-L476RE.menu.opt.os.build.flags.ldspecs=--specs=nano.specs
-Dragonfly-L476RE.menu.opt.o1=Fast
-Dragonfly-L476RE.menu.opt.o1.build.flags.optimize=-O1
-Dragonfly-L476RE.menu.opt.o1.build.flags.ldspecs=
-Dragonfly-L476RE.menu.opt.o2=Faster
-Dragonfly-L476RE.menu.opt.o2.build.flags.optimize=-O2
-Dragonfly-L476RE.menu.opt.o2.build.flags.ldspecs=
-Dragonfly-L476RE.menu.opt.o3=Fastest
-Dragonfly-L476RE.menu.opt.o3.build.flags.optimize=-O3
-Dragonfly-L476RE.menu.opt.o3.build.flags.ldspecs=
+UltraProffieLite-L431CC.menu.operatingSys.pfosx=ProffieOSX
+UltraProffieLite-L431CC.menu.operatingSys.pfosx.os.selection=OSx
+UltraProffieLite-L431CC.menu.operatingSys.pfos=ProffieOS
+UltraProffieLite-L431CC.menu.operatingSys.pfos.os.selection=OSx_None
 
-# Tlera Dragonfly (V2)
+UltraProffieLite-L431CC.menu.prop.prop1=UltraSaber
+UltraProffieLite-L431CC.menu.prop.prop1.pp.selection=PF_PROP_ULTRASABERS
+UltraProffieLite-L431CC.menu.prop.prop2=Saber
+UltraProffieLite-L431CC.menu.prop.prop2.pp.selection=PF_PROP_SABER
+UltraProffieLite-L431CC.menu.prop.prop3=Saber SHTOK
+UltraProffieLite-L431CC.menu.prop.prop3.pp.selection=PF_PROP_SABER_SHTOK
+UltraProffieLite-L431CC.menu.prop.prop4=Saber SA22C
+UltraProffieLite-L431CC.menu.prop.prop4.pp.selection=PF_PROP_SABER_SA22C
+UltraProffieLite-L431CC.menu.prop.prop5=Saber FETT
+UltraProffieLite-L431CC.menu.prop.prop5.pp.selection=PF_PROP_SABER_FETT
+UltraProffieLite-L431CC.menu.prop.prop6=Saber BC
+UltraProffieLite-L431CC.menu.prop.prop6.pp.selection=PF_PROP_SABER_BC
+UltraProffieLite-L431CC.menu.prop.prop7=Detonator
+UltraProffieLite-L431CC.menu.prop.prop7.pp.selection=PF_PROP_DETON
+UltraProffieLite-L431CC.menu.prop.prop8=Blaster
+UltraProffieLite-L431CC.menu.prop.prop8.pp.selection=PF_PROP_BLASTER
+UltraProffieLite-L431CC.menu.prop.prop9=AudioFx
+UltraProffieLite-L431CC.menu.prop.prop9.pp.selection=PF_PROP_AUDIOFX
+
+UltraProffieLite-L431CC.menu.SupportedBlades.sbdefTwo=2 (default)
+UltraProffieLite-L431CC.menu.SupportedBlades.sbdefTwo.sb.selection=2
+UltraProffieLite-L431CC.menu.SupportedBlades.sbOne=1
+UltraProffieLite-L431CC.menu.SupportedBlades.sbOne.sb.selection=1
+UltraProffieLite-L431CC.menu.SupportedBlades.sbTwo=2
+UltraProffieLite-L431CC.menu.SupportedBlades.sbTwo.sb.selection=2
+UltraProffieLite-L431CC.menu.SupportedBlades.sbThree=3
+UltraProffieLite-L431CC.menu.SupportedBlades.sbThree.sb.selection=3
+UltraProffieLite-L431CC.menu.SupportedBlades.sbFour=4
+UltraProffieLite-L431CC.menu.SupportedBlades.sbFour.sb.selection=4
+UltraProffieLite-L431CC.menu.SupportedBlades.sbFive=5
+UltraProffieLite-L431CC.menu.SupportedBlades.sbFive.sb.selection=5
+UltraProffieLite-L431CC.menu.SupportedBlades.sbSix=6
+UltraProffieLite-L431CC.menu.SupportedBlades.sbSix.sb.selection=6
+
+UltraProffieLite-L431CC.menu.tdeveloper.devOff=Off
+UltraProffieLite-L431CC.menu.tdeveloper.devOff.devMode.selection=PF_DEVELOPER_MODE_OFF
+UltraProffieLite-L431CC.menu.tdeveloper.devOn=On
+UltraProffieLite-L431CC.menu.tdeveloper.devOn.devMode.selection=PF_DEVELOPER_MODE_ON
+
+UltraProffieLite-L431CC.menu.zdiagnoseMode.statusOn=On
+UltraProffieLite-L431CC.menu.zdiagnoseMode.statusOn.sp.selection=PF_STATUS_REPORT_ON
+UltraProffieLite-L431CC.menu.zdiagnoseMode.statusOff=Off
+UltraProffieLite-L431CC.menu.zdiagnoseMode.statusOff.sp.selection=PF_STATUS_REPORT_OFF
+
+UltraProffieLite-L431CC.name=UltraProffieLite
+UltraProffieLite-L431CC.vid.0=0x1209
+UltraProffieLite-L431CC.pid.0=0x6668
+
+UltraProffieLite-L431CC.upload.tool=stm32l4_serial
+UltraProffieLite-L431CC.upload.protocol=uartSerial
+UltraProffieLite-L431CC.upload.maximum_size=260096
+UltraProffieLite-L431CC.upload.maximum_data_size=65536
+UltraProffieLite-L431CC.upload.use_1200bps_touch=true
+UltraProffieLite-L431CC.upload.wait_for_upload_port=false
+UltraProffieLite-L431CC.upload.native_usb=false
+
+UltraProffieLite-L431CC.build.mcu=cortex-m4
+UltraProffieLite-L431CC.build.f_cpu=80000000L
+UltraProffieLite-L431CC.build.board=STM32L4_PROFFIELITE
+UltraProffieLite-L431CC.build.arch=STM32L4
+UltraProffieLite-L431CC.build.core=stm32l4
+UltraProffieLite-L431CC.build.vid=0x1209
+UltraProffieLite-L431CC.build.pid=0x6668
+UltraProffieLite-L431CC.build.did=0xffff
+UltraProffieLite-L431CC.build.usb_manufacturer="hubbe.net"
+UltraProffieLite-L431CC.build.usb_product="Proffieboard"
+UltraProffieLite-L431CC.build.extra_flags=-DULTRA_PROFFIE -DHWVER='{bv.selection}' -D{os.selection} -D{devMode.selection} -D{sp.selection} -D{pp.selection} -DHW_NUM_BLADES={sb.selection} -DHW_NUM_BUTTONS=2 -DHW_PREFIX=L -DHW_LETTER1={bv.audio} -DHW_LETTER2={bv.charger} -DHW_LETTER3={bv.sns} -DHW_LETTER4={bv.pwmch} -DHW_LETTER5={bv.booster} -DSTM32L431xx -D__FPU_PRESENT=1 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mabi=aapcs -mslow-flash-data -fsingle-precision-constant -felide-constructors -ffast-math {build.usb_flags} {build.dosfs_flags}
+UltraProffieLite-L431CC.build.flags.optimize=-Os
+UltraProffieLite-L431CC.build.flags.ldspecs=--specs=nano.specs -specs=nosys.specs
+UltraProffieLite-L431CC.build.usb_type=USB_TYPE_NONE
+
+UltraProffieLite-L431CC.build.ldscript=linker_scripts/STM32L431CC_FLASH.ld
+UltraProffieLite-L431CC.build.openocdscript=openocd_scripts/stm32l431cc_proffielite.cfg
+UltraProffieLite-L431CC.build.variant=STM32L431CC-ProffieLite
+UltraProffieLite-L431CC.build.variant_system_libs="-L{runtime.platform.path}/system/STM32L4xx/Lib" "-L{runtime.platform.path}/system/CMSIS/Lib" -lstm32l431 -larm_cortexM4lf_math
+UltraProffieLite-L431CC.build.variant_system_include="-I{runtime.platform.path}/system/CMSIS/Include" "-I{runtime.platform.path}/system/CMSIS/Device/ST/STM32L4xx/Include" "-I{runtime.platform.path}/system/STM32L4xx/Include" 
+
+
+##############################################################
+# ST UltraProffieZero-L431CC
 # ---------------------------------------
-Dragonfly-L496RG.name=Dragonfly-L496RG
-Dragonfly-L496RG.vid.0=0x1209
-Dragonfly-L496RG.pid.0=0x6666
-
-Dragonfly-L496RG.upload.tool=stm32l4_dfu
-Dragonfly-L496RG.upload.protocol=dfu
-Dragonfly-L496RG.upload.maximum_size=1032192
-Dragonfly-L496RG.upload.use_1200bps_touch=true
-Dragonfly-L496RG.upload.wait_for_upload_port=false
-Dragonfly-L496RG.upload.native_usb=false
-
-Dragonfly-L496RG.build.mcu=cortex-m4
-Dragonfly-L496RG.build.f_cpu=80000000L
-Dragonfly-L496RG.build.board=STM32L4_DRAGONFLY
-Dragonfly-L496RG.build.arch=STM32L4
-Dragonfly-L496RG.build.core=stm32l4
-Dragonfly-L496RG.build.vid=0x1209
-Dragonfly-L496RG.build.pid=0x6666
-Dragonfly-L496RG.build.did=0xffff
-Dragonfly-L496RG.build.usb_manufacturer="Tlera Corporation"
-Dragonfly-L496RG.build.usb_product="Dragonfly"
-Dragonfly-L496RG.build.extra_flags=-DSTM32L496xx -D__FPU_PRESENT=1 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mabi=aapcs -mslow-flash-data -fsingle-precision-constant {build.usb_flags} {build.dosfs_flags}
-Dragonfly-L496RG.build.ldscript=linker_scripts/STM32L496RG_FLASH.ld
-Dragonfly-L496RG.build.openocdscript=openocd_scripts/stm32l496rg_dragonfly.cfg
-Dragonfly-L496RG.build.variant=STM32L496RG-Dragonfly
-Dragonfly-L496RG.build.variant_system_libs="-L{runtime.platform.path}/system/STM32L4xx/Lib" "-L{runtime.platform.path}/system/CMSIS/Lib" -lstm32l496 -larm_cortexM4lf_math
-Dragonfly-L496RG.build.variant_system_include="-I{runtime.platform.path}/system/CMSIS/Include" "-I{runtime.platform.path}/system/CMSIS/Device/ST/STM32L4xx/Include" "-I{runtime.platform.path}/system/STM32L4xx/Include" 
-
-Dragonfly-L496RG.menu.usb.cdc=Serial
-Dragonfly-L496RG.menu.usb.cdc.build.usb_type=USB_TYPE_CDC
-Dragonfly-L496RG.menu.usb.cdc_msc=Serial + Mass Storage
-Dragonfly-L496RG.menu.usb.cdc_msc.build.usb_type=USB_TYPE_CDC_MSC
-Dragonfly-L496RG.menu.usb.cdc_hid=Serial + Keyboard + Mouse
-Dragonfly-L496RG.menu.usb.cdc_hid.build.usb_type=USB_TYPE_CDC_HID
-Dragonfly-L496RG.menu.usb.cdc_msc_hid=Serial + Mass Storage + Keyboard + Mouse
-Dragonfly-L496RG.menu.usb.cdc_msc_hid.build.usb_type=USB_TYPE_CDC_MSC_HID
-Dragonfly-L496RG.menu.usb.none=No USB
-Dragonfly-L496RG.menu.usb.none.build.usb_type=USB_TYPE_NONE
-
-Dragonfly-L496RG.menu.dosfs.sflash=SFLASH (QSPI)
-Dragonfly-L496RG.menu.dosfs.sflash.build.dosfs_sdcard=0
-Dragonfly-L496RG.menu.dosfs.sflash.build.dosfs_sflash=2
-Dragonfly-L496RG.menu.dosfs.sdspi=SDCARD (SPI)
-Dragonfly-L496RG.menu.dosfs.sdspi.build.dosfs_sdcard=1
-Dragonfly-L496RG.menu.dosfs.sdspi.build.dosfs_sflash=0
-Dragonfly-L496RG.menu.dosfs.sdmmc=SDCARD (SDIO Default Speed)
-Dragonfly-L496RG.menu.dosfs.sdmmc.build.dosfs_sdcard=2
-Dragonfly-L496RG.menu.dosfs.sdmmc.build.dosfs_sflash=0
-Dragonfly-L496RG.menu.dosfs.sdmmc1=SDCARD (SDIO High Speed)
-Dragonfly-L496RG.menu.dosfs.sdmmc1.build.dosfs_sdcard=3
-Dragonfly-L496RG.menu.dosfs.sdmmc1.build.dosfs_sflash=0
-Dragonfly-L496RG.menu.dosfs.none=None
-Dragonfly-L496RG.menu.dosfs.none.build.dosfs_sdcard=0
-Dragonfly-L496RG.menu.dosfs.none.build.dosfs_sflash=0
-
-Dragonfly-L496RG.menu.speed.80=80 MHz
-Dragonfly-L496RG.menu.speed.80.build.f_cpu=80000000L
-Dragonfly-L496RG.menu.speed.72=72 MHz
-Dragonfly-L496RG.menu.speed.72.build.f_cpu=72000000L
-Dragonfly-L496RG.menu.speed.64=64 MHz
-Dragonfly-L496RG.menu.speed.64.build.f_cpu=64000000L
-Dragonfly-L496RG.menu.speed.48=48 MHz
-Dragonfly-L496RG.menu.speed.48.build.f_cpu=48000000L
-Dragonfly-L496RG.menu.speed.32=32 MHz
-Dragonfly-L496RG.menu.speed.32.build.f_cpu=32000000L
-Dragonfly-L496RG.menu.speed.24=24 MHz
-Dragonfly-L496RG.menu.speed.24.build.f_cpu=24000000L
-Dragonfly-L496RG.menu.speed.16=16 MHz
-Dragonfly-L496RG.menu.speed.16.build.f_cpu=16000000L
-Dragonfly-L496RG.menu.speed.8=8 MHz (No USB)
-Dragonfly-L496RG.menu.speed.8.build.f_cpu=8000000L
-Dragonfly-L496RG.menu.speed.4=4 MHz (No USB)
-Dragonfly-L496RG.menu.speed.4.build.f_cpu=4000000L
-Dragonfly-L496RG.menu.speed.2=2 MHz (No USB)
-Dragonfly-L496RG.menu.speed.2.build.f_cpu=2000000L
-Dragonfly-L496RG.menu.speed.1=1 MHz (No USB)
-Dragonfly-L496RG.menu.speed.1.build.f_cpu=1000000L
-
-Dragonfly-L496RG.menu.opt.os=Smallest Code
-Dragonfly-L496RG.menu.opt.os.build.flags.optimize=-Os
-Dragonfly-L496RG.menu.opt.os.build.flags.ldspecs=--specs=nano.specs
-Dragonfly-L496RG.menu.opt.o1=Fast
-Dragonfly-L496RG.menu.opt.o1.build.flags.optimize=-O1
-Dragonfly-L496RG.menu.opt.o1.build.flags.ldspecs=
-Dragonfly-L496RG.menu.opt.o2=Faster
-Dragonfly-L496RG.menu.opt.o2.build.flags.optimize=-O2
-Dragonfly-L496RG.menu.opt.o2.build.flags.ldspecs=
-Dragonfly-L496RG.menu.opt.o3=Fastest
-Dragonfly-L496RG.menu.opt.o3.build.flags.optimize=-O3
-Dragonfly-L496RG.menu.opt.o3.build.flags.ldspecs=
-
-# Tlera Butterfly
-# ---------------------------------------
-Butterfly-L433CC.name=Butterfly-L433CC
-Butterfly-L433CC.vid.0=0x1209
-Butterfly-L433CC.pid.0=0x6668
-
-Butterfly-L433CC.upload.tool=stm32l4_dfu
-Butterfly-L433CC.upload.protocol=dfu
-Butterfly-L433CC.upload.maximum_size=245760
-Butterfly-L433CC.upload.use_1200bps_touch=true
-Butterfly-L433CC.upload.wait_for_upload_port=false
-Butterfly-L433CC.upload.native_usb=false
-
-Butterfly-L433CC.build.mcu=cortex-m4
-Butterfly-L433CC.build.f_cpu=80000000L
-Butterfly-L433CC.build.board=STM32L4_BUTTERFLY
-Butterfly-L433CC.build.arch=STM32L4
-Butterfly-L433CC.build.core=stm32l4
-Butterfly-L433CC.build.vid=0x1209
-Butterfly-L433CC.build.pid=0x6668
-Butterfly-L433CC.build.did=0xffff
-Butterfly-L433CC.build.usb_manufacturer="Tlera Corporation"
-Butterfly-L433CC.build.usb_product="Butterfly"
-Butterfly-L433CC.build.extra_flags=-DSTM32L433xx -D__FPU_PRESENT=1 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mabi=aapcs -mslow-flash-data -fsingle-precision-constant {build.usb_flags} {build.dosfs_flags}
-Butterfly-L433CC.build.ldscript=linker_scripts/STM32L433CC_FLASH.ld
-Butterfly-L433CC.build.openocdscript=openocd_scripts/stm32l433cc_butterfly.cfg
-Butterfly-L433CC.build.variant=STM32L433CC-Butterfly
-Butterfly-L433CC.build.variant_system_libs="-L{runtime.platform.path}/system/STM32L4xx/Lib" "-L{runtime.platform.path}/system/CMSIS/Lib" -lstm32l433 -larm_cortexM4lf_math
-Butterfly-L433CC.build.variant_system_include="-I{runtime.platform.path}/system/CMSIS/Include" "-I{runtime.platform.path}/system/CMSIS/Device/ST/STM32L4xx/Include" "-I{runtime.platform.path}/system/STM32L4xx/Include" 
-
-Butterfly-L433CC.menu.usb.cdc=Serial
-Butterfly-L433CC.menu.usb.cdc.build.usb_type=USB_TYPE_CDC
-Butterfly-L433CC.menu.usb.cdc_msc=Serial + Mass Storage
-Butterfly-L433CC.menu.usb.cdc_msc.build.usb_type=USB_TYPE_CDC_MSC
-Butterfly-L433CC.menu.usb.cdc_hid=Serial + Keyboard + Mouse
-Butterfly-L433CC.menu.usb.cdc_hid.build.usb_type=USB_TYPE_CDC_HID
-Butterfly-L433CC.menu.usb.cdc_msc_hid=Serial + Mass Storage + Keyboard + Mouse
-Butterfly-L433CC.menu.usb.cdc_msc_hid.build.usb_type=USB_TYPE_CDC_MSC_HID
-Butterfly-L433CC.menu.usb.cdc_dap=Serial + CMSIS-DAP
-Butterfly-L433CC.menu.usb.cdc_dap.build.usb_type=USB_TYPE_CDC_DAP
-Butterfly-L433CC.menu.usb.cdc_msc_dap=Serial + Mass Storage + CMSIS-DAP
-Butterfly-L433CC.menu.usb.cdc_msc_dap.build.usb_type=USB_TYPE_CDC_MSC_DAP
-Butterfly-L433CC.menu.usb.none=No USB
-Butterfly-L433CC.menu.usb.none.build.usb_type=USB_TYPE_NONE
-
-Butterfly-L433CC.menu.dosfs.none=None
-Butterfly-L433CC.menu.dosfs.none.build.dosfs_sdcard=0
-Butterfly-L433CC.menu.dosfs.none.build.dosfs_sflash=0
-Butterfly-L433CC.menu.dosfs.sdspi=SDCARD (SPI)
-Butterfly-L433CC.menu.dosfs.sdspi.build.dosfs_sdcard=1
-Butterfly-L433CC.menu.dosfs.sdspi.build.dosfs_sflash=0
-
-Butterfly-L433CC.menu.speed.80=80 MHz
-Butterfly-L433CC.menu.speed.80.build.f_cpu=80000000L
-Butterfly-L433CC.menu.speed.72=72 MHz
-Butterfly-L433CC.menu.speed.72.build.f_cpu=72000000L
-Butterfly-L433CC.menu.speed.64=64 MHz
-Butterfly-L433CC.menu.speed.64.build.f_cpu=64000000L
-Butterfly-L433CC.menu.speed.48=48 MHz
-Butterfly-L433CC.menu.speed.48.build.f_cpu=48000000L
-Butterfly-L433CC.menu.speed.32=32 MHz
-Butterfly-L433CC.menu.speed.32.build.f_cpu=32000000L
-Butterfly-L433CC.menu.speed.24=24 MHz
-Butterfly-L433CC.menu.speed.24.build.f_cpu=24000000L
-Butterfly-L433CC.menu.speed.16=16 MHz (No USB)
-Butterfly-L433CC.menu.speed.16.build.f_cpu=16000000L
-Butterfly-L433CC.menu.speed.8=8 MHz (No USB)
-Butterfly-L433CC.menu.speed.8.build.f_cpu=8000000L
-Butterfly-L433CC.menu.speed.4=4 MHz (No USB)
-Butterfly-L433CC.menu.speed.4.build.f_cpu=4000000L
-Butterfly-L433CC.menu.speed.2=2 MHz (No USB)
-Butterfly-L433CC.menu.speed.2.build.f_cpu=2000000L
-Butterfly-L433CC.menu.speed.1=1 MHz (No USB)
-Butterfly-L433CC.menu.speed.1.build.f_cpu=1000000L
-
-Butterfly-L433CC.menu.opt.os=Smallest Code
-Butterfly-L433CC.menu.opt.os.build.flags.optimize=-Os
-Butterfly-L433CC.menu.opt.os.build.flags.ldspecs=--specs=nano.specs
-Butterfly-L433CC.menu.opt.o1=Fast
-Butterfly-L433CC.menu.opt.o1.build.flags.optimize=-O1
-Butterfly-L433CC.menu.opt.o1.build.flags.ldspecs=
-Butterfly-L433CC.menu.opt.o2=Faster
-Butterfly-L433CC.menu.opt.o2.build.flags.optimize=-O2
-Butterfly-L433CC.menu.opt.o2.build.flags.ldspecs=
-Butterfly-L433CC.menu.opt.o3=Fastest
-Butterfly-L433CC.menu.opt.o3.build.flags.optimize=-O3
-Butterfly-L433CC.menu.opt.o3.build.flags.ldspecs=
-
-# Tlera Ladybug
-# ---------------------------------------
-Ladybug-L432KC.name=Ladybug-L432KC
-Ladybug-L432KC.vid.0=0x1209
-Ladybug-L432KC.pid.0=0x6669
-
-Ladybug-L432KC.upload.tool=stm32l4_dfu
-Ladybug-L432KC.upload.protocol=dfu
-Ladybug-L432KC.upload.maximum_size=245760
-Ladybug-L432KC.upload.use_1200bps_touch=true
-Ladybug-L432KC.upload.wait_for_upload_port=false
-Ladybug-L432KC.upload.native_usb=false
-
-Ladybug-L432KC.build.mcu=cortex-m4
-Ladybug-L432KC.build.f_cpu=80000000L
-Ladybug-L432KC.build.board=STM32L4_LADYBUG
-Ladybug-L432KC.build.arch=STM32L4
-Ladybug-L432KC.build.core=stm32l4
-Ladybug-L432KC.build.vid=0x1209
-Ladybug-L432KC.build.pid=0x6669
-Ladybug-L432KC.build.did=0xffff
-Ladybug-L432KC.build.usb_manufacturer="Tlera Corporation"
-Ladybug-L432KC.build.usb_product="Ladybug"
-Ladybug-L432KC.build.extra_flags=-DSTM32L432xx -D__FPU_PRESENT=1 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mabi=aapcs -mslow-flash-data -fsingle-precision-constant {build.usb_flags} {build.dosfs_flags}
-Ladybug-L432KC.build.ldscript=linker_scripts/STM32L432KC_FLASH.ld
-Ladybug-L432KC.build.openocdscript=openocd_scripts/stm32l432kc_ladybug.cfg
-Ladybug-L432KC.build.variant=STM32L432KC-Ladybug
-Ladybug-L432KC.build.variant_system_libs="-L{runtime.platform.path}/system/STM32L4xx/Lib" "-L{runtime.platform.path}/system/CMSIS/Lib" -lstm32l432 -larm_cortexM4lf_math
-Ladybug-L432KC.build.variant_system_include="-I{runtime.platform.path}/system/CMSIS/Include" "-I{runtime.platform.path}/system/CMSIS/Device/ST/STM32L4xx/Include" "-I{runtime.platform.path}/system/STM32L4xx/Include" 
-
-Ladybug-L432KC.menu.usb.cdc=Serial
-Ladybug-L432KC.menu.usb.cdc.build.usb_type=USB_TYPE_CDC
-Ladybug-L432KC.menu.usb.cdc_msc=Serial + Mass Storage
-Ladybug-L432KC.menu.usb.cdc_msc.build.usb_type=USB_TYPE_CDC_MSC
-Ladybug-L432KC.menu.usb.cdc_hid=Serial + Keyboard + Mouse
-Ladybug-L432KC.menu.usb.cdc_hid.build.usb_type=USB_TYPE_CDC_HID
-Ladybug-L432KC.menu.usb.cdc_msc_hid=Serial + Mass Storage + Keyboard + Mouse
-Ladybug-L432KC.menu.usb.cdc_msc_hid.build.usb_type=USB_TYPE_CDC_MSC_HID
-Ladybug-L432KC.menu.usb.none=No USB
-Ladybug-L432KC.menu.usb.none.build.usb_type=USB_TYPE_NONE
-
-Ladybug-L432KC.menu.dosfs.none=None
-Ladybug-L432KC.menu.dosfs.none.build.dosfs_sdcard=0
-Ladybug-L432KC.menu.dosfs.none.build.dosfs_sflash=0
-Ladybug-L432KC.menu.dosfs.sdspi=SDCARD (SPI)
-Ladybug-L432KC.menu.dosfs.sdspi.build.dosfs_sdcard=1
-Ladybug-L432KC.menu.dosfs.sdspi.build.dosfs_sflash=0
-
-Ladybug-L432KC.menu.speed.80=80 MHz
-Ladybug-L432KC.menu.speed.80.build.f_cpu=80000000L
-Ladybug-L432KC.menu.speed.72=72 MHz
-Ladybug-L432KC.menu.speed.72.build.f_cpu=72000000L
-Ladybug-L432KC.menu.speed.64=64 MHz
-Ladybug-L432KC.menu.speed.64.build.f_cpu=64000000L
-Ladybug-L432KC.menu.speed.48=48 MHz
-Ladybug-L432KC.menu.speed.48.build.f_cpu=48000000L
-Ladybug-L432KC.menu.speed.32=32 MHz
-Ladybug-L432KC.menu.speed.32.build.f_cpu=32000000L
-Ladybug-L432KC.menu.speed.24=24 MHz
-Ladybug-L432KC.menu.speed.24.build.f_cpu=24000000L
-Ladybug-L432KC.menu.speed.16=16 MHz (No USB)
-Ladybug-L432KC.menu.speed.16.build.f_cpu=16000000L
-Ladybug-L432KC.menu.speed.8=8 MHz (No USB)
-Ladybug-L432KC.menu.speed.8.build.f_cpu=8000000L
-Ladybug-L432KC.menu.speed.4=4 MHz (No USB)
-Ladybug-L432KC.menu.speed.4.build.f_cpu=4000000L
-Ladybug-L432KC.menu.speed.2=2 MHz (No USB)
-Ladybug-L432KC.menu.speed.2.build.f_cpu=2000000L
-Ladybug-L432KC.menu.speed.1=1 MHz (No USB)
-Ladybug-L432KC.menu.speed.1.build.f_cpu=1000000L
-
-Ladybug-L432KC.menu.opt.os=Smallest Code
-Ladybug-L432KC.menu.opt.os.build.flags.optimize=-Os
-Ladybug-L432KC.menu.opt.os.build.flags.ldspecs=--specs=nano.specs
-Ladybug-L432KC.menu.opt.o1=Fast
-Ladybug-L432KC.menu.opt.o1.build.flags.optimize=-O1
-Ladybug-L432KC.menu.opt.o1.build.flags.ldspecs=
-Ladybug-L432KC.menu.opt.o2=Faster
-Ladybug-L432KC.menu.opt.o2.build.flags.optimize=-O2
-Ladybug-L432KC.menu.opt.o2.build.flags.ldspecs=
-Ladybug-L432KC.menu.opt.o3=Fastest
-Ladybug-L432KC.menu.opt.o3.build.flags.optimize=-O3
-Ladybug-L432KC.menu.opt.o3.build.flags.ldspecs=
+menu.boardVersion=Board Version
+menu.operatingSys=Operating System
+menu.prop=Prop
+menu.SupportedBlades=Supported blades
+menu.tdeveloper=Developer Mode
+menu.zdiagnoseMode=Diagnose Mode
 
 
-# ST NUCLEO-L432KC
-# ---------------------------------------
-NUCLEO-L432KC.name=NUCLEO-L432KC
-NUCLEO-L432KC.vid.0=0x0483
-NUCLEO-L432KC.pid.0=0x374b
+UltraProffieZero-L431CC.build.dosfs_sdcard=0
+UltraProffieZero-L431CC.build.dosfs_sflash=1
 
-NUCLEO-L432KC.upload.tool=stm32l4_openocd
-NUCLEO-L432KC.upload.protocol=stlink
-NUCLEO-L432KC.upload.maximum_size=245760
-NUCLEO-L432KC.upload.use_1200bps_touch=true
-NUCLEO-L432KC.upload.wait_for_upload_port=false
-NUCLEO-L432KC.upload.native_usb=false
+UltraProffieZero-L431CC.menu.boardVersion.HWVER1=PZ31L
+UltraProffieZero-L431CC.menu.boardVersion.HWVER1.bv.selection=Z31L
+UltraProffieZero-L431CC.menu.boardVersion.HWVER1.bv.audio=3
+UltraProffieZero-L431CC.menu.boardVersion.HWVER1.bv.charger=1
+UltraProffieZero-L431CC.menu.boardVersion.HWVER1.bv.sns=L
+UltraProffieZero-L431CC.menu.boardVersion.HWVER1.bv.pwmch=2
+UltraProffieZero-L431CC.menu.boardVersion.HWVER1.bv.booster=1
 
-NUCLEO-L432KC.build.mcu=cortex-m4
-NUCLEO-L432KC.build.f_cpu=80000000L
-NUCLEO-L432KC.build.board=STM32L4_NUCLEO
-NUCLEO-L432KC.build.arch=STM32L4
-NUCLEO-L432KC.build.core=stm32l4
-NUCLEO-L432KC.build.vid=0x0483
-NUCLEO-L432KC.build.pid=0x374b
-NUCLEO-L432KC.build.did=0xffff
-NUCLEO-L432KC.build.extra_flags=-DSTM32L432xx -D__FPU_PRESENT=1 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mabi=aapcs -mslow-flash-data -fsingle-precision-constant {build.usb_flags}
-NUCLEO-L432KC.build.ldscript=linker_scripts/STM32L432KC_FLASH.ld
-NUCLEO-L432KC.build.openocdscript=openocd_scripts/stm32l432kc_nucleo.cfg
-NUCLEO-L432KC.build.variant=STM32L432KC-NUCLEO
-NUCLEO-L432KC.build.variant_system_libs="-L{runtime.platform.path}/system/STM32L4xx/Lib" "-L{runtime.platform.path}/system/CMSIS/Lib" -lstm32l432 -larm_cortexM4lf_math
-NUCLEO-L432KC.build.variant_system_include="-I{runtime.platform.path}/system/CMSIS/Include" "-I{runtime.platform.path}/system/CMSIS/Device/ST/STM32L4xx/Include" "-I{runtime.platform.path}/system/STM32L4xx/Include" 
+UltraProffieZero-L431CC.menu.boardVersion.HWVER2=PZ30L
+UltraProffieZero-L431CC.menu.boardVersion.HWVER2.bv.selection=Z30L
+UltraProffieZero-L431CC.menu.boardVersion.HWVER2.bv.audio=3
+UltraProffieZero-L431CC.menu.boardVersion.HWVER2.bv.charger=0
+UltraProffieZero-L431CC.menu.boardVersion.HWVER2.bv.sns=L
+UltraProffieZero-L431CC.menu.boardVersion.HWVER2.bv.pwmch=2
+UltraProffieZero-L431CC.menu.boardVersion.HWVER2.bv.booster=1
 
-NUCLEO-L432KC.menu.speed.80=80 MHz
-NUCLEO-L432KC.menu.speed.80.build.f_cpu=80000000L
-NUCLEO-L432KC.menu.speed.72=72 MHz
-NUCLEO-L432KC.menu.speed.72.build.f_cpu=72000000L
-NUCLEO-L432KC.menu.speed.64=64 MHz
-NUCLEO-L432KC.menu.speed.64.build.f_cpu=64000000L
-NUCLEO-L432KC.menu.speed.48=48 MHz
-NUCLEO-L432KC.menu.speed.48.build.f_cpu=48000000L
-NUCLEO-L432KC.menu.speed.32=32 MHz
-NUCLEO-L432KC.menu.speed.32.build.f_cpu=32000000L
-NUCLEO-L432KC.menu.speed.24=24 MHz
-NUCLEO-L432KC.menu.speed.24.build.f_cpu=24000000L
-NUCLEO-L432KC.menu.speed.16=16 MHz
-NUCLEO-L432KC.menu.speed.16.build.f_cpu=16000000L
-NUCLEO-L432KC.menu.speed.8=8 MHz
-NUCLEO-L432KC.menu.speed.8.build.f_cpu=8000000L
-NUCLEO-L432KC.menu.speed.4=4 MHz
-NUCLEO-L432KC.menu.speed.4.build.f_cpu=4000000L
-NUCLEO-L432KC.menu.speed.2=2 MHz
-NUCLEO-L432KC.menu.speed.2.build.f_cpu=2000000L
-NUCLEO-L432KC.menu.speed.1=1 MHz
-NUCLEO-L432KC.menu.speed.1.build.f_cpu=1000000L
+UltraProffieZero-L431CC.menu.boardVersion.HWVER3=PZ21L
+UltraProffieZero-L431CC.menu.boardVersion.HWVER3.bv.selection=Z21L
+UltraProffieZero-L431CC.menu.boardVersion.HWVER3.bv.audio=2
+UltraProffieZero-L431CC.menu.boardVersion.HWVER3.bv.charger=1
+UltraProffieZero-L431CC.menu.boardVersion.HWVER3.bv.sns=L
+UltraProffieZero-L431CC.menu.boardVersion.HWVER3.bv.pwmch=2
+UltraProffieZero-L431CC.menu.boardVersion.HWVER3.bv.booster=0
 
-NUCLEO-L432KC.menu.opt.os=Smallest Code
-NUCLEO-L432KC.menu.opt.os.build.flags.optimize=-Os
-NUCLEO-L432KC.menu.opt.os.build.flags.ldspecs=--specs=nano.specs
-NUCLEO-L432KC.menu.opt.o1=Fast
-NUCLEO-L432KC.menu.opt.o1.build.flags.optimize=-O1
-NUCLEO-L432KC.menu.opt.o1.build.flags.ldspecs=
-NUCLEO-L432KC.menu.opt.o2=Faster
-NUCLEO-L432KC.menu.opt.o2.build.flags.optimize=-O2
-NUCLEO-L432KC.menu.opt.o2.build.flags.ldspecs=
-NUCLEO-L432KC.menu.opt.o3=Fastest
-NUCLEO-L432KC.menu.opt.o3.build.flags.optimize=-O3
-NUCLEO-L432KC.menu.opt.o3.build.flags.ldspecs=
+UltraProffieZero-L431CC.menu.boardVersion.HWVER4=PZ20L
+UltraProffieZero-L431CC.menu.boardVersion.HWVER4.bv.selection=Z20L
+UltraProffieZero-L431CC.menu.boardVersion.HWVER4.bv.audio=2
+UltraProffieZero-L431CC.menu.boardVersion.HWVER4.bv.charger=0
+UltraProffieZero-L431CC.menu.boardVersion.HWVER4.bv.sns=L
+UltraProffieZero-L431CC.menu.boardVersion.HWVER4.bv.pwmch=2
+UltraProffieZero-L431CC.menu.boardVersion.HWVER4.bv.booster=0
 
+UltraProffieZero-L431CC.menu.operatingSys.pfosx=ProffieOSX
+UltraProffieZero-L431CC.menu.operatingSys.pfosx.os.selection=OSx
+UltraProffieZero-L431CC.menu.operatingSys.pfos=ProffieOS
+UltraProffieZero-L431CC.menu.operatingSys.pfos.os.selection=OSx_None
 
+UltraProffieZero-L431CC.menu.prop.prop1=UltraSaber
+UltraProffieZero-L431CC.menu.prop.prop1.pp.selection=PF_PROP_ULTRASABERS
+UltraProffieZero-L431CC.menu.prop.prop2=Saber
+UltraProffieZero-L431CC.menu.prop.prop2.pp.selection=PF_PROP_SABER
+UltraProffieZero-L431CC.menu.prop.prop3=Saber SHTOK
+UltraProffieZero-L431CC.menu.prop.prop3.pp.selection=PF_PROP_SABER_SHTOK
+UltraProffieZero-L431CC.menu.prop.prop4=Saber SA22C
+UltraProffieZero-L431CC.menu.prop.prop4.pp.selection=PF_PROP_SABER_SA22C
+UltraProffieZero-L431CC.menu.prop.prop5=Saber FETT
+UltraProffieZero-L431CC.menu.prop.prop5.pp.selection=PF_PROP_SABER_FETT
+UltraProffieZero-L431CC.menu.prop.prop6=Saber BC
+UltraProffieZero-L431CC.menu.prop.prop6.pp.selection=PF_PROP_SABER_BC
+UltraProffieZero-L431CC.menu.prop.prop7=Detonator
+UltraProffieZero-L431CC.menu.prop.prop7.pp.selection=PF_PROP_DETON
+UltraProffieZero-L431CC.menu.prop.prop8=Blaster
+UltraProffieZero-L431CC.menu.prop.prop8.pp.selection=PF_PROP_BLASTER
+UltraProffieZero-L431CC.menu.prop.prop9=AudioFx
+UltraProffieZero-L431CC.menu.prop.prop9.pp.selection=PF_PROP_AUDIOFX
 
-# ST NUCLEO-L476RG
-# ---------------------------------------
-NUCLEO-L476RG.name=NUCLEO-L476RG
-NUCLEO-L476RG.vid.0=0x0483
-NUCLEO-L476RG.pid.0=0x374b
+UltraProffieZero-L431CC.menu.SupportedBlades.sbdefTwo=2 (default)
+UltraProffieZero-L431CC.menu.SupportedBlades.sbdefTwo.sb.selection=2
+UltraProffieZero-L431CC.menu.SupportedBlades.sbOne=1
+UltraProffieZero-L431CC.menu.SupportedBlades.sbOne.sb.selection=1
+UltraProffieZero-L431CC.menu.SupportedBlades.sbTwo=2
+UltraProffieZero-L431CC.menu.SupportedBlades.sbTwo.sb.selection=2
+UltraProffieZero-L431CC.menu.SupportedBlades.sbThree=3
+UltraProffieZero-L431CC.menu.SupportedBlades.sbThree.sb.selection=3
 
-NUCLEO-L476RG.upload.tool=stm32l4_openocd
-NUCLEO-L476RG.upload.protocol=stlink
-NUCLEO-L476RG.upload.maximum_size=1032192
-NUCLEO-L476RG.upload.use_1200bps_touch=true
-NUCLEO-L476RG.upload.wait_for_upload_port=false
-NUCLEO-L476RG.upload.native_usb=false
+UltraProffieZero-L431CC.menu.tdeveloper.devOff=Off
+UltraProffieZero-L431CC.menu.tdeveloper.devOff.devMode.selection=PF_DEVELOPER_MODE_OFF
+UltraProffieZero-L431CC.menu.tdeveloper.devOn=On
+UltraProffieZero-L431CC.menu.tdeveloper.devOn.devMode.selection=PF_DEVELOPER_MODE_ON
 
-NUCLEO-L476RG.build.mcu=cortex-m4
-NUCLEO-L476RG.build.f_cpu=80000000L
-NUCLEO-L476RG.build.board=STM32L4_NUCLEO
-NUCLEO-L476RG.build.arch=STM32L4
-NUCLEO-L476RG.build.core=stm32l4
-NUCLEO-L476RG.build.vid=0x0483
-NUCLEO-L476RG.build.pid=0x374b
-NUCLEO-L476RG.build.did=0xffff
-NUCLEO-L476RG.build.extra_flags=-DSTM32L476xx -D__FPU_PRESENT=1 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mabi=aapcs -mslow-flash-data -fsingle-precision-constant {build.usb_flags} {build.dosfs_flags}
-NUCLEO-L476RG.build.ldscript=linker_scripts/STM32L476RG_FLASH.ld
-NUCLEO-L476RG.build.openocdscript=openocd_scripts/stm32l476rg_nucleo.cfg
-NUCLEO-L476RG.build.variant=STM32L476RG-NUCLEO
-NUCLEO-L476RG.build.variant_system_libs="-L{runtime.platform.path}/system/STM32L4xx/Lib" "-L{runtime.platform.path}/system/CMSIS/Lib" -lstm32l476 -larm_cortexM4lf_math
-NUCLEO-L476RG.build.variant_system_include="-I{runtime.platform.path}/system/CMSIS/Include" "-I{runtime.platform.path}/system/CMSIS/Device/ST/STM32L4xx/Include" "-I{runtime.platform.path}/system/STM32L4xx/Include" 
+UltraProffieZero-L431CC.menu.zdiagnoseMode.statusOn=On
+UltraProffieZero-L431CC.menu.zdiagnoseMode.statusOn.sp.selection=PF_STATUS_REPORT_ON
+UltraProffieZero-L431CC.menu.zdiagnoseMode.statusOff=Off
+UltraProffieZero-L431CC.menu.zdiagnoseMode.statusOff.sp.selection=PF_STATUS_REPORT_OFF
 
-NUCLEO-L476RG.menu.dosfs.none=None
-NUCLEO-L476RG.menu.dosfs.none.build.dosfs_sdcard=0
-NUCLEO-L476RG.menu.dosfs.none.build.dosfs_sflash=0
-NUCLEO-L476RG.menu.dosfs.sdspi=SDCARD (SPI)
-NUCLEO-L476RG.menu.dosfs.sdspi.build.dosfs_sdcard=1
-NUCLEO-L476RG.menu.dosfs.sdspi.build.dosfs_sflash=0
-NUCLEO-L476RG.menu.dosfs.sdmmc=SDCARD (SDIO Default Speed)
-NUCLEO-L476RG.menu.dosfs.sdmmc.build.dosfs_sdcard=2
-NUCLEO-L476RG.menu.dosfs.sdmmc.build.dosfs_sflash=0
-NUCLEO-L476RG.menu.dosfs.sdmmc1=SDCARD (SDIO High Speed)
-NUCLEO-L476RG.menu.dosfs.sdmmc1.build.dosfs_sdcard=3
-NUCLEO-L476RG.menu.dosfs.sdmmc1.build.dosfs_sflash=0
+UltraProffieZero-L431CC.name=UltraProffieZero
+UltraProffieZero-L431CC.vid.0=0x1209
+UltraProffieZero-L431CC.pid.0=0x6668
 
-NUCLEO-L476RG.menu.speed.80=80 MHz
-NUCLEO-L476RG.menu.speed.80.build.f_cpu=80000000L
-NUCLEO-L476RG.menu.speed.72=72 MHz
-NUCLEO-L476RG.menu.speed.72.build.f_cpu=72000000L
-NUCLEO-L476RG.menu.speed.64=64 MHz
-NUCLEO-L476RG.menu.speed.64.build.f_cpu=64000000L
-NUCLEO-L476RG.menu.speed.48=48 MHz
-NUCLEO-L476RG.menu.speed.48.build.f_cpu=48000000L
-NUCLEO-L476RG.menu.speed.32=32 MHz
-NUCLEO-L476RG.menu.speed.32.build.f_cpu=32000000L
-NUCLEO-L476RG.menu.speed.24=24 MHz
-NUCLEO-L476RG.menu.speed.24.build.f_cpu=24000000L
-NUCLEO-L476RG.menu.speed.16=16 MHz
-NUCLEO-L476RG.menu.speed.16.build.f_cpu=16000000L
-NUCLEO-L476RG.menu.speed.8=8 MHz
-NUCLEO-L476RG.menu.speed.8.build.f_cpu=8000000L
-NUCLEO-L476RG.menu.speed.4=4 MHz
-NUCLEO-L476RG.menu.speed.4.build.f_cpu=4000000L
-NUCLEO-L476RG.menu.speed.2=2 MHz
-NUCLEO-L476RG.menu.speed.2.build.f_cpu=2000000L
-NUCLEO-L476RG.menu.speed.1=1 MHz
-NUCLEO-L476RG.menu.speed.1.build.f_cpu=1000000L
+UltraProffieZero-L431CC.upload.tool=stm32l4_serial
+UltraProffieZero-L431CC.upload.protocol=uartSerial
+UltraProffieZero-L431CC.upload.maximum_size=260096
+UltraProffieZero-L431CC.upload.maximum_data_size=65536
+UltraProffieZero-L431CC.upload.use_1200bps_touch=true
+UltraProffieZero-L431CC.upload.wait_for_upload_port=false
+UltraProffieZero-L431CC.upload.native_usb=false
 
-NUCLEO-L476RG.menu.opt.os=Smallest Code
-NUCLEO-L476RG.menu.opt.os.build.flags.optimize=-Os
-NUCLEO-L476RG.menu.opt.os.build.flags.ldspecs=--specs=nano.specs
-NUCLEO-L476RG.menu.opt.o1=Fast
-NUCLEO-L476RG.menu.opt.o1.build.flags.optimize=-O1
-NUCLEO-L476RG.menu.opt.o1.build.flags.ldspecs=
-NUCLEO-L476RG.menu.opt.o2=Faster
-NUCLEO-L476RG.menu.opt.o2.build.flags.optimize=-O2
-NUCLEO-L476RG.menu.opt.o2.build.flags.ldspecs=
-NUCLEO-L476RG.menu.opt.o3=Fastest
-NUCLEO-L476RG.menu.opt.o3.build.flags.optimize=-O3
-NUCLEO-L476RG.menu.opt.o3.build.flags.ldspecs=
+UltraProffieZero-L431CC.build.mcu=cortex-m4
+UltraProffieZero-L431CC.build.f_cpu=80000000L
+UltraProffieZero-L431CC.build.board=STM32L4_PROFFIELITE
+UltraProffieZero-L431CC.build.arch=STM32L4
+UltraProffieZero-L431CC.build.core=stm32l4
+UltraProffieZero-L431CC.build.vid=0x1209
+UltraProffieZero-L431CC.build.pid=0x6668
+UltraProffieZero-L431CC.build.did=0xffff
+UltraProffieZero-L431CC.build.usb_manufacturer="hubbe.net"
+UltraProffieZero-L431CC.build.usb_product="Proffieboard"
+UltraProffieZero-L431CC.build.extra_flags=-DULTRA_PROFFIE -DHWVER='{bv.selection}' -D{os.selection} -D{devMode.selection} -D{sp.selection} -D{pp.selection} -DHW_NUM_BLADES={sb.selection} -DHW_NUM_BUTTONS=1 -DHW_PREFIX=Z -DHW_LETTER1={bv.audio} -DHW_LETTER2={bv.charger} -DHW_LETTER3={bv.sns} -DHW_LETTER4={bv.pwmch} -DHW_LETTER5={bv.booster} -DSTM32L431xx -D__FPU_PRESENT=1 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mabi=aapcs -mslow-flash-data -fsingle-precision-constant -felide-constructors -ffast-math {build.usb_flags} {build.dosfs_flags}
+UltraProffieZero-L431CC.build.flags.optimize=-Os
+UltraProffieZero-L431CC.build.flags.ldspecs=--specs=nano.specs -specs=nosys.specs
+UltraProffieZero-L431CC.build.usb_type=USB_TYPE_NONE
+
+UltraProffieZero-L431CC.build.ldscript=linker_scripts/STM32L431CC_FLASH.ld
+UltraProffieZero-L431CC.build.openocdscript=openocd_scripts/stm32l431cc_proffielite.cfg
+UltraProffieZero-L431CC.build.variant=STM32L431CC-ProffieLite
+UltraProffieZero-L431CC.build.variant_system_libs="-L{runtime.platform.path}/system/STM32L4xx/Lib" "-L{runtime.platform.path}/system/CMSIS/Lib" -lstm32l431 -larm_cortexM4lf_math
+UltraProffieZero-L431CC.build.variant_system_include="-I{runtime.platform.path}/system/CMSIS/Include" "-I{runtime.platform.path}/system/CMSIS/Device/ST/STM32L4xx/Include" "-I{runtime.platform.path}/system/STM32L4xx/Include" 

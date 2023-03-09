@@ -137,7 +137,7 @@ static inline __attribute__((optimize("O3"),always_inline)) uint32_t stm32l4_sds
     return mask & (0xffffffff >> (32 - width));
 }
 
-static const uint8_t stm32l4_sdspi_crc7_table[256]= {
+static const uint8_t PF_MOVE_TO_RAM_CONSt_ATT stm32l4_sdspi_crc7_table[256]= {
     0x00, 0x09, 0x12, 0x1b, 0x24, 0x2d, 0x36, 0x3f,
     0x48, 0x41, 0x5a, 0x53, 0x6c, 0x65, 0x7e, 0x77,
     0x19, 0x10, 0x0b, 0x02, 0x3d, 0x34, 0x2f, 0x26,
@@ -172,12 +172,12 @@ static const uint8_t stm32l4_sdspi_crc7_table[256]= {
     0x46, 0x4f, 0x54, 0x5d, 0x62, 0x6b, 0x70, 0x79
 };
 
-static inline uint8_t stm32l4_sdspi_update_crc7(uint8_t crc7, uint8_t data)
+static inline uint8_t PF_MOVE_TO_RAM_ATT stm32l4_sdspi_update_crc7(uint8_t crc7, uint8_t data) 
 {
     return stm32l4_sdspi_crc7_table[(crc7 << 1) ^ data];
 }
 
-static __attribute__((optimize("O3"))) uint8_t stm32l4_sdspi_compute_crc7(const uint8_t *data, uint32_t count)
+static __attribute__((optimize("O3"))) uint8_t PF_MOVE_TO_RAM_ATT stm32l4_sdspi_compute_crc7(const uint8_t *data, uint32_t count) 
 {
     unsigned int n;
     uint8_t crc7 = 0;
@@ -298,7 +298,7 @@ static inline __attribute__((optimize("O3"),always_inline)) uint8_t stm32l4_sdsp
     return data;
 }
 
-static inline __attribute__((optimize("O3"))) uint16_t stm32l4_sdspi_read_block(stm32l4_sdspi_t *sdspi, uint8_t *data, uint32_t count)
+static inline __attribute__((optimize("O3"))) PF_MOVE_TO_RAM_ATT uint16_t stm32l4_sdspi_read_block(stm32l4_sdspi_t *sdspi, uint8_t *data, uint32_t count)
 {
     SPI_TypeDef *SPI = sdspi->SPI;
     uint32_t spi_cr1, spi_cr2;
@@ -361,7 +361,7 @@ static inline __attribute__((optimize("O3"))) uint16_t stm32l4_sdspi_read_block(
     return crc16;
 }
 
-static inline __attribute__((optimize("O3"))) void stm32l4_sdspi_write_block(stm32l4_sdspi_t *sdspi, const uint8_t *data, uint32_t count)
+static inline __attribute__((optimize("O3"))) PF_MOVE_TO_RAM_ATT void stm32l4_sdspi_write_block(stm32l4_sdspi_t *sdspi, const uint8_t *data, uint32_t count)
 {
     SPI_TypeDef *SPI = sdspi->SPI;
     uint32_t spi_cr1, spi_cr2;
@@ -422,7 +422,7 @@ static inline __attribute__((optimize("O3"))) void stm32l4_sdspi_write_block(stm
     SPI->CR1 = spi_cr1 | SPI_CR1_SPE;
 }
 
-static bool stm32l4_sdspi_detect(stm32l4_sdspi_t *sdspi)
+static bool PF_MOVE_TO_RAM_ATT stm32l4_sdspi_detect(stm32l4_sdspi_t *sdspi)
 {
     bool detect;
 
@@ -444,7 +444,7 @@ static bool stm32l4_sdspi_detect(stm32l4_sdspi_t *sdspi)
     return detect;
 }
 
-static void stm32l4_sdspi_select(stm32l4_sdspi_t *sdspi)
+static void PF_MOVE_TO_RAM_ATT stm32l4_sdspi_select(stm32l4_sdspi_t *sdspi) 
 {
     SPI_TypeDef *SPI = sdspi->SPI;
 
@@ -468,7 +468,7 @@ static void stm32l4_sdspi_select(stm32l4_sdspi_t *sdspi)
      */
 }
 
-static void stm32l4_sdspi_deselect(stm32l4_sdspi_t *sdspi)
+static void  PF_MOVE_TO_RAM_ATT stm32l4_sdspi_deselect(stm32l4_sdspi_t *sdspi) 
 {
     SPI_TypeDef *SPI = sdspi->SPI;
 
@@ -490,7 +490,7 @@ static void stm32l4_sdspi_deselect(stm32l4_sdspi_t *sdspi)
     stm32l4_system_periph_disable(SYSTEM_PERIPH_SPI1 + sdspi->instance);
 }
 
-static void stm32l4_sdspi_mode(stm32l4_sdspi_t *sdspi, uint32_t mode)
+static void PF_MOVE_TO_RAM_ATT stm32l4_sdspi_mode(stm32l4_sdspi_t *sdspi, uint32_t mode) 
 {
     SPI_TypeDef *SPI = sdspi->SPI;
     uint32_t n, speed, clock, divide;
@@ -586,7 +586,7 @@ static void stm32l4_sdspi_mode(stm32l4_sdspi_t *sdspi, uint32_t mode)
  * Wait till DO transitions from BUSY (0x00) to READY (0xff).
  */
 
-static int stm32l4_sdspi_wait_ready(stm32l4_sdspi_t *sdspi, uint32_t timeout)
+static int PF_MOVE_TO_RAM_ATT stm32l4_sdspi_wait_ready(stm32l4_sdspi_t *sdspi, uint32_t timeout) 
 {
     int status = F_NO_ERROR;
     uint32_t millis;
@@ -621,7 +621,7 @@ static int stm32l4_sdspi_wait_ready(stm32l4_sdspi_t *sdspi, uint32_t timeout)
     return status;
 }
 
-static int stm32l4_sdspi_command(stm32l4_sdspi_t *sdspi, uint8_t index, uint32_t argument, uint32_t wait)
+static int PF_MOVE_TO_RAM_ATT stm32l4_sdspi_command(stm32l4_sdspi_t *sdspi, uint8_t index, uint32_t argument, uint32_t wait) 
 {
     int status = F_NO_ERROR;
     unsigned int n;
@@ -777,7 +777,7 @@ static int stm32l4_sdspi_command(stm32l4_sdspi_t *sdspi, uint8_t index, uint32_t
     return status;
 }
 
-static int stm32l4_sdspi_receive(stm32l4_sdspi_t *sdspi, uint8_t *data, uint32_t count, uint32_t *p_count)
+static int PF_MOVE_TO_RAM_ATT stm32l4_sdspi_receive(stm32l4_sdspi_t *sdspi, uint8_t *data, uint32_t count, uint32_t *p_count) 
 {
     int status = F_NO_ERROR;
     uint8_t token;
@@ -873,7 +873,7 @@ static int stm32l4_sdspi_receive(stm32l4_sdspi_t *sdspi, uint8_t *data, uint32_t
     return status;
 }
 
-static int stm32l4_sdspi_transmit(stm32l4_sdspi_t *sdspi, uint8_t start, const uint8_t *data, uint32_t count, bool *p_check)
+static int PF_MOVE_TO_RAM_ATT stm32l4_sdspi_transmit(stm32l4_sdspi_t *sdspi, uint8_t start, const uint8_t *data, uint32_t count, bool *p_check)
 {
     int status = F_NO_ERROR;
     uint8_t token, response;
@@ -985,13 +985,13 @@ static int stm32l4_sdspi_transmit(stm32l4_sdspi_t *sdspi, uint8_t start, const u
     return status;
 }
 
-static int stm32l4_sdspi_read_stop(stm32l4_sdspi_t *sdspi)
+static int PF_MOVE_TO_RAM_ATT stm32l4_sdspi_read_stop(stm32l4_sdspi_t *sdspi) 
 {
     int status = F_NO_ERROR;
 
     STM32L4_SDSPI_STATISTICS_COUNT(sdcard_read_stop);
 
-    status = stm32l4_sdspi_command(sdspi, SD_CMD_STOP_TRANSMISSION, 0, 0);
+    status = stm32l4_sdspi_command(sdspi, SD_CMD_STOP_TRANSMISSION, 0, 0); // PF_MOVE_TO_RAM_ATT
 
     if (status == F_NO_ERROR)
     {
@@ -999,7 +999,7 @@ static int stm32l4_sdspi_read_stop(stm32l4_sdspi_t *sdspi)
 
 	if (sdspi->response[0] & SD_R1_ERROR_MASK)
 	{
-	    status = stm32l4_sdspi_command(sdspi, SD_CMD_SEND_STATUS, 0, 1);
+	    status = stm32l4_sdspi_command(sdspi, SD_CMD_SEND_STATUS, 0, 1); // PF_MOVE_TO_RAM_ATT
 				
 	    if (status == F_NO_ERROR)
 	    {
@@ -1022,7 +1022,7 @@ static int stm32l4_sdspi_read_stop(stm32l4_sdspi_t *sdspi)
     return status;
 }
 
-static int stm32l4_sdspi_write_stop(stm32l4_sdspi_t *sdspi)
+static int PF_MOVE_TO_RAM_ATT stm32l4_sdspi_write_stop(stm32l4_sdspi_t *sdspi)
 {
     int status = F_NO_ERROR;
 
@@ -1046,7 +1046,7 @@ static int stm32l4_sdspi_write_stop(stm32l4_sdspi_t *sdspi)
     return status;
 }
 
-static int stm32l4_sdspi_write_sync(stm32l4_sdspi_t *sdspi)
+static int PF_MOVE_TO_RAM_ATT stm32l4_sdspi_write_sync(stm32l4_sdspi_t *sdspi) 
 {
     int status = F_NO_ERROR;
 
@@ -1103,7 +1103,7 @@ static int stm32l4_sdspi_write_sync(stm32l4_sdspi_t *sdspi)
     return status;
 }
 
-static int stm32l4_sdspi_idle(stm32l4_sdspi_t *sdspi, uint32_t *p_media)
+static int PF_MOVE_TO_RAM_ATT stm32l4_sdspi_idle(stm32l4_sdspi_t *sdspi, uint32_t *p_media)
 {
     int status = F_NO_ERROR;
     uint32_t media;
@@ -1238,7 +1238,7 @@ static uint32_t stm32l4_sdspi_au_size_table[16] = {
     131072,  /* 64MB  */
 };
 
-static int stm32l4_sdspi_reset(stm32l4_sdspi_t *sdspi, uint32_t media)
+static int PF_MOVE_TO_RAM_ATT stm32l4_sdspi_reset(stm32l4_sdspi_t *sdspi, uint32_t media)
 {
     int status = F_NO_ERROR;
     uint32_t millis, count;
@@ -1431,7 +1431,7 @@ static int stm32l4_sdspi_reset(stm32l4_sdspi_t *sdspi, uint32_t media)
     return status;
 }
 
-static int stm32l4_sdspi_lock(stm32l4_sdspi_t *sdspi, int state, uint32_t address)
+static int PF_MOVE_TO_RAM_ATT stm32l4_sdspi_lock(stm32l4_sdspi_t *sdspi, int state, uint32_t address) 
 {
     int status = F_NO_ERROR;
     uint32_t media;
@@ -1508,7 +1508,7 @@ static int stm32l4_sdspi_lock(stm32l4_sdspi_t *sdspi, int state, uint32_t addres
     return status;
 }
 
-static int stm32l4_sdspi_unlock(stm32l4_sdspi_t *sdspi, int status)
+static int PF_MOVE_TO_RAM_ATT stm32l4_sdspi_unlock(stm32l4_sdspi_t *sdspi, int status) 
 {
     if ((sdspi->state != STM32L4_SDSPI_STATE_INIT) && (sdspi->state != STM32L4_SDSPI_STATE_RESET))
     {
@@ -1536,7 +1536,7 @@ static int stm32l4_sdspi_unlock(stm32l4_sdspi_t *sdspi, int status)
     return status;
 }
 
-static int stm32l4_sdspi_release(void *context)
+static int PF_MOVE_TO_RAM_ATT stm32l4_sdspi_release(void *context)
 {
     stm32l4_sdspi_t *sdspi = (stm32l4_sdspi_t*)context;
     int status = F_NO_ERROR;
@@ -1707,7 +1707,7 @@ static int stm32l4_sdspi_discard(void *context, uint32_t address, uint32_t lengt
     return F_NO_ERROR;
 }
 
-static int stm32l4_sdspi_read(void *context, uint32_t address, uint8_t *data, uint32_t length, bool prefetch)
+static int PF_MOVE_TO_RAM_ATT stm32l4_sdspi_read(void *context, uint32_t address, uint8_t *data, uint32_t length, bool prefetch) 
 {
     stm32l4_sdspi_t *sdspi = (stm32l4_sdspi_t*)context;
     int status = F_NO_ERROR;
@@ -2073,7 +2073,7 @@ static int stm32l4_sdspi_sync(void *context, bool wait)
     return status;
 }
 
-static const dosfs_device_interface_t stm32l4_sdspi_interface = {
+static const PF_MOVE_TO_RAM_CONSt_ATT dosfs_device_interface_t stm32l4_sdspi_interface = {
     stm32l4_sdspi_release,
     stm32l4_sdspi_info,
     stm32l4_sdspi_format,

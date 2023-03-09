@@ -10,8 +10,8 @@
   *          is using in the C source code, usually in main.c. This file contains:
   *           - Configuration section that allows to select:
   *              - The STM32L4xx device used in the target application
-  *              - To use or not the peripheral’s drivers in application code(i.e.
-  *                code will be based on direct access to peripheral’s registers
+  *              - To use or not the peripheralâ€™s drivers in application code(i.e.
+  *                code will be based on direct access to peripheralâ€™s registers
   *                rather than drivers API), this option is controlled by
   *                "#define USE_HAL_DRIVER"
   *
@@ -55,6 +55,16 @@
 
 #ifndef __STM32L4xx_H
 #define __STM32L4xx_H
+
+// #define PF_MOVE_TO_RAM_ATT __attribute__((section(".RamFunc")))
+#define PF_MOVE_TO_RAM_ATT __attribute__((section(".data2")))
+
+// #define PF_MOVE_TO_RAM_ATT __attribute__((optimize("O3"), section(".rodata2"), long_call))
+// #define PF_MOVE_TO_RAM_ATT
+
+#define PF_MOVE_TO_RAM_CONSt_ATT __attribute__((section(".rodata2")))
+
+// #define PF_MOVE_TO_RAM_CONSt_ATT
 
 #ifdef __cplusplus
  extern "C" {

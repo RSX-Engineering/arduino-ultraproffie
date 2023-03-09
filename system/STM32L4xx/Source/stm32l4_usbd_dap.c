@@ -132,7 +132,7 @@ static void stm32l4_usbd_dap_routine(void)
 
 #if defined(STM32L476xx) || defined(STM32L496xx)
 	    NVIC_DisableIRQ(OTG_FS_IRQn);
-#else
+#elif !defined(STM32L431xx)
 	    NVIC_DisableIRQ(USB_IRQn);
 #endif
 	    tx_index = stm32l4_usbd_dap_device.tx_read & DAP_PACKET_INDEX;
@@ -141,7 +141,7 @@ static void stm32l4_usbd_dap_routine(void)
 
 #if defined(STM32L476xx) || defined(STM32L496xx)
 	    NVIC_EnableIRQ(OTG_FS_IRQn);
-#else
+#elif !defined(STM32L431xx)
 	    NVIC_EnableIRQ(USB_IRQn);
 #endif
 	}

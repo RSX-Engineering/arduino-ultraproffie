@@ -93,14 +93,14 @@ void stm32l4_usbd_hid_send_report(uint8_t id, const uint8_t *data, uint32_t coun
 	
 #if defined(STM32L476xx) || defined(STM32L496xx)
 	NVIC_DisableIRQ(OTG_FS_IRQn);
-#else
+#elif !defined(STM32L431xx)
 	NVIC_DisableIRQ(USB_IRQn);
 #endif
 	USBD_HID_SendReport(stm32l4_usbd_hid_device.USBD, &stm32l4_usbd_hid_device.tx_data[0], count+1);
 	
 #if defined(STM32L476xx) || defined(STM32L496xx)
 	NVIC_EnableIRQ(OTG_FS_IRQn);
-#else
+#elif !defined(STM32L431xx)
 	NVIC_EnableIRQ(USB_IRQn);
 #endif
     }

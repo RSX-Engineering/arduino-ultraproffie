@@ -46,6 +46,7 @@ extern void armv7m_systick_enable(void);
 extern void armv7m_systick_disable(void);
 
 extern void SysTick_Handler(void);
+extern void SysTick_Handler_RAM(void);
 
 #ifdef __cplusplus
 }

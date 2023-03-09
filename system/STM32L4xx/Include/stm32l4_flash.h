@@ -42,6 +42,7 @@ extern bool     stm32l4_flash_unlock(void);
 extern void     stm32l4_flash_lock(void);
 extern bool     stm32l4_flash_erase(uint32_t address, uint32_t count);
 extern bool     stm32l4_flash_program(uint32_t address, const uint8_t *data, uint32_t count);
+extern bool     stm32l4_flash_MassErase(void);
 
 #ifdef __cplusplus
 }

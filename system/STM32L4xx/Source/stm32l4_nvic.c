@@ -34,6 +34,8 @@
 #include "armv7m.h"
 
 __attribute__((section(".isr_vector_sram"))) uint32_t __isr_vector_sram[16+96];
+//  uint32_t __attribute__((section(".data2")))__isr_vector_sram[16+96];	// __attribute__((section(".rodata2")))
+
 
 uint32_t NVIC_CatchIRQ(IRQn_Type IRQn, uint32_t vector)
 {
@@ -55,8 +57,8 @@ uint32_t NVIC_CatchIRQ(IRQn_Type IRQn, uint32_t vector)
 	{
 	    o_vectors = vectors;
 	    vectors = &__isr_vector_sram[0];
-	    
-	    for (i = 0; i < sizeof(__isr_vector_sram) / sizeof(__isr_vector_sram[0]); i++)
+	    uint8_t until = sizeof(__isr_vector_sram) / sizeof(__isr_vector_sram[0]);
+	    for (i = 0; i < until; i++)
 	    {
 		vectors[i] = o_vectors[i];
 	    }
@@ -66,7 +68,7 @@ uint32_t NVIC_CatchIRQ(IRQn_Type IRQn, uint32_t vector)
 	__set_PRIMASK(primask);
     }
 
-    vector = armv7m_atomic_exchange(&vectors[IRQn + 16], vector);
+   vector = armv7m_atomic_exchange(&vectors[IRQn + 16], vector);
 
     return vector;
 }

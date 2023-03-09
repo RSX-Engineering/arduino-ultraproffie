@@ -885,7 +885,7 @@ bool stm32l4_i2c_disable(stm32l4_i2c_t *i2c)
     pin_scl = i2c->pins.scl;
     pin_sda = i2c->pins.sda;
 
-#if defined(STM32L433xx) || defined(STM32L452xx)
+#if defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L431xx)
     if ((i2c->option & I2C_OPTION_ALTERNATE) && (pin_scl == GPIO_PIN_PB6_I2C1_SCL) && (pin_sda == GPIO_PIN_PB7_I2C1_SDA))
     {
 	pin_scl = GPIO_PIN_PB8_I2C1_SCL;
@@ -938,7 +938,7 @@ bool stm32l4_i2c_configure(stm32l4_i2c_t *i2c, uint32_t clock, uint32_t option)
     }
 #endif /* defined(STM32L476xx) */
 
-#if defined(STM32L433xx) || defined(STM32L452xx)
+#if defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L431xx)
     if ((i2c->option & I2C_OPTION_ALTERNATE) && (pin_scl == GPIO_PIN_PB6_I2C1_SCL) && (pin_sda == GPIO_PIN_PB7_I2C1_SDA))
     {
 	pin_scl = GPIO_PIN_PB8_I2C1_SCL;
@@ -1013,7 +1013,7 @@ bool stm32l4_i2c_configure(stm32l4_i2c_t *i2c, uint32_t clock, uint32_t option)
 	    syscfg_cfgr1 |= SYSCFG_CFGR1_I2C_PB7_FMP;
 	}
 	
-#if defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L476xx) || defined(STM32L496xx)
+#if defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L476xx) || defined(STM32L496xx) || defined(STM32L431xx)
 	if (pin_scl == GPIO_PIN_PB8_I2C1_SCL)
 	{
 	    syscfg_cfgr1 |= SYSCFG_CFGR1_I2C_PB8_FMP;
@@ -1105,7 +1105,7 @@ bool stm32l4_i2c_reset(stm32l4_i2c_t *i2c)
     pin_scl = i2c->pins.scl;
     pin_sda = i2c->pins.sda;
 
-#if defined(STM32L433xx) || defined(STM32L452xx)
+#if defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L431xx)
     if ((i2c->option & I2C_OPTION_ALTERNATE) && (pin_scl == GPIO_PIN_PB6_I2C1_SCL) && (pin_sda == GPIO_PIN_PB7_I2C1_SDA))
     {
 	pin_scl = GPIO_PIN_PB8_I2C1_SCL;

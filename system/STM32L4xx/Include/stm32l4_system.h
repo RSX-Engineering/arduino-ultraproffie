@@ -187,7 +187,7 @@ typedef void (*stm32l4_system_callback_t)(void *context, uint32_t events);
 #define SYSTEM_WAKEUP_SYNC            0x00000400
 #define SYSTEM_WAKEUP_TIMEOUT         0x00000800
 
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
 #define SYSTEM_SAICLK_NONE            0
 #define SYSTEM_SAICLK_8192000         8192000   /*  32000 * 256 */
 #define SYSTEM_SAICLK_11289600        11289600  /*  44100 * 256 */
@@ -210,7 +210,7 @@ typedef void (*stm32l4_system_callback_t)(void *context, uint32_t events);
 #define SYSTEM_MCO_MODE_PLL           5
 #define SYSTEM_MCO_MODE_LSI           6
 #define SYSTEM_MCO_MODE_LSE           7
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
 #define SYSTEM_MCO_MODE_HSI48         8
 #endif
 

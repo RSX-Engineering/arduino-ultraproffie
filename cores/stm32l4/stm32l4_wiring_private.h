@@ -53,7 +53,10 @@ extern "C" {
 #include "stm32l4_sdmmc.h"
 #include "stm32l4_sdspi.h"
 #include "stm32l4_iwdg.h"
-
+// TODO add defines 
+#include "stm32l4_crc.h"
+// end define
+/*
 #define STM32L4_SVCALL_IRQ_PRIORITY  15
 #define STM32L4_PENDSV_IRQ_PRIORITY  15
 
@@ -72,6 +75,25 @@ extern "C" {
 #define STM32L4_SYSTICK_IRQ_PRIORITY 3
 #define STM32L4_TONE_IRQ_PRIORITY    2
 #define STM32L4_SERVO_IRQ_PRIORITY   1
+*/
+#define STM32L4_SVCALL_IRQ_PRIORITY  15
+#define STM32L4_PENDSV_IRQ_PRIORITY  15
+
+#define STM32L4_ADC_IRQ_PRIORITY     15
+#define STM32L4_DAC_IRQ_PRIORITY     15
+#define STM32L4_PWM_IRQ_PRIORITY     15
+
+#define STM32L4_USB_IRQ_PRIORITY     14			// not used dont care 
+#define STM32L4_RTC_IRQ_PRIORITY     13
+#define STM32L4_I2C_IRQ_PRIORITY     12
+#define STM32L4_UART_IRQ_PRIORITY    10
+#define STM32L4_EXTI_IRQ_PRIORITY    11			// usually to read pin state was 4 
+#define STM32L4_SAI_IRQ_PRIORITY     9
+
+#define STM32L4_SPI_IRQ_PRIORITY     4			// very important 
+#define STM32L4_SYSTICK_IRQ_PRIORITY 3			// this will be maxx 
+#define STM32L4_TONE_IRQ_PRIORITY    2			// not used for out board so maxx them out 			
+#define STM32L4_SERVO_IRQ_PRIORITY   1			// not used for our board 
 
 #define LOBYTE(x)  ((uint8_t)(x & 0x00FF))
 #define HIBYTE(x)  ((uint8_t)((x & 0xFF00) >>8))
@@ -159,6 +181,10 @@ extern void stm32l4_usbd_dap_initialize(uint16_t pin_swclk, uint16_t pin_swdio);
 
 extern stm32l4_adc_t stm32l4_adc;
 extern stm32l4_exti_t stm32l4_exti;
+
+#ifdef ULTRA_PROFFIE
+extern CRC_HandleTypeDef stm32l4_crc;
+#endif
 
 #ifdef __cplusplus
 } // extern "C"

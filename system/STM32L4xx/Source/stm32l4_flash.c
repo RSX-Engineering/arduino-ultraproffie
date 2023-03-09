@@ -32,7 +32,7 @@
 
 #include "stm32l4_flash.h"
 
-static __attribute__((optimize("O3"), section(".rodata2"), long_call)) void stm32l4_flash_do_erase(void)
+static __attribute__((optimize("O3"), section(".data2"), long_call)) void stm32l4_flash_do_erase(void)
 {
     uint32_t flash_sr;
 
@@ -47,7 +47,7 @@ static __attribute__((optimize("O3"), section(".rodata2"), long_call)) void stm3
     FLASH->CR = 0;
 }
 
-static __attribute__((optimize("O3"), section(".rodata2"), long_call)) void stm32l4_flash_do_program(volatile uint32_t *flash, const uint8_t *data, const uint8_t *data_e)
+static __attribute__((optimize("O3"), section(".data2"), long_call)) void stm32l4_flash_do_program(volatile uint32_t *flash, const uint8_t *data, const uint8_t *data_e)
 {
     uint32_t flash_sr;
 
@@ -81,12 +81,12 @@ static __attribute__((optimize("O3"), section(".rodata2"), long_call)) void stm3
     FLASH->CR = 0;
 }
 
-uint32_t stm32l4_flash_size(void)
+uint32_t PF_MOVE_TO_RAM_ATT stm32l4_flash_size(void)
 {
     return *((volatile uint16_t*)0x1fff75e0) * 1024;
 }
 
-bool stm32l4_flash_unlock(void)
+bool PF_MOVE_TO_RAM_ATT stm32l4_flash_unlock(void)
 {
     uint32_t primask;
 
@@ -107,12 +107,52 @@ bool stm32l4_flash_unlock(void)
     return !!(FLASH->CR & FLASH_CR_LOCK);
 }
 
-void stm32l4_flash_lock(void)
+void PF_MOVE_TO_RAM_ATT stm32l4_flash_lock(void)
 {
     FLASH->CR |= FLASH_CR_LOCK;
 }
 
-bool stm32l4_flash_erase(uint32_t address, uint32_t count)
+bool PF_MOVE_TO_RAM_ATT stm32l4_flash_MassErase()
+{
+	bool success = true;
+	uint32_t primask, flash_acr;
+	
+	if (FLASH->CR & FLASH_CR_LOCK)
+    {
+		return false;
+    }
+	primask = __get_PRIMASK();
+
+	__disable_irq();
+
+	flash_acr = FLASH->ACR;
+
+	FLASH->ACR = flash_acr & ~(FLASH_ACR_ICEN | FLASH_ACR_DCEN);
+
+	{
+	    FLASH->CR = FLASH_CR_MER1;//FLASH_CR_PER | ((((address - flash_base) / 2048) << 3) & FLASH_CR_PNB);
+	}
+	
+	stm32l4_flash_do_erase();
+	
+	FLASH->ACR = (flash_acr & ~(FLASH_ACR_ICEN | FLASH_ACR_DCEN)) | (FLASH_ACR_ICRST | FLASH_ACR_DCRST);
+	FLASH->ACR = flash_acr;
+
+	__set_PRIMASK(primask);
+	
+	if (FLASH->SR & (FLASH_SR_PROGERR | FLASH_SR_SIZERR | FLASH_SR_PGAERR | FLASH_SR_PGSERR | FLASH_SR_WRPERR | FLASH_SR_MISERR | FLASH_SR_FASTERR | FLASH_SR_RDERR))
+	{
+	    success = false;
+	}
+
+    FLASH->SR = (FLASH_SR_PROGERR | FLASH_SR_SIZERR | FLASH_SR_PGAERR | FLASH_SR_PGSERR | FLASH_SR_WRPERR | FLASH_SR_MISERR | FLASH_SR_FASTERR | FLASH_SR_RDERR);
+    // __set_PRIMASK(primask);
+	// if(!primask)
+	// 	__enable_irq();
+    return success;
+}
+
+bool PF_MOVE_TO_RAM_ATT stm32l4_flash_erase(uint32_t address, uint32_t count)
 {
     bool success = true;
     const uint32_t flash_base = FLASH_BASE;
@@ -153,15 +193,14 @@ bool stm32l4_flash_erase(uint32_t address, uint32_t count)
 	FLASH->ACR = (flash_acr & ~(FLASH_ACR_ICEN | FLASH_ACR_DCEN)) | (FLASH_ACR_ICRST | FLASH_ACR_DCRST);
 	FLASH->ACR = flash_acr;
 
-	__set_PRIMASK(primask);
+	__set_PRIMASK(primask);	// was 
 	
 	if (FLASH->SR & (FLASH_SR_PROGERR | FLASH_SR_SIZERR | FLASH_SR_PGAERR | FLASH_SR_PGSERR | FLASH_SR_WRPERR | FLASH_SR_MISERR | FLASH_SR_FASTERR | FLASH_SR_RDERR))
 	{
 	    success = false;
-	    
 	    break;
 	}
-	
+
 	address += 2048;
 	count   -= 2048;
     }
@@ -172,7 +211,7 @@ bool stm32l4_flash_erase(uint32_t address, uint32_t count)
     return success;
 }
 
-bool stm32l4_flash_program(uint32_t address, const uint8_t *data, uint32_t count)
+bool PF_MOVE_TO_RAM_ATT stm32l4_flash_program(uint32_t address, const uint8_t *data, uint32_t count)
 {
     bool success = true;
     uint32_t primask, flash_acr, chunk;
@@ -209,15 +248,13 @@ bool stm32l4_flash_program(uint32_t address, const uint8_t *data, uint32_t count
 	FLASH->ACR = (flash_acr & ~(FLASH_ACR_ICEN | FLASH_ACR_DCEN)) | (FLASH_ACR_ICRST | FLASH_ACR_DCRST);
 	FLASH->ACR = flash_acr;
     
-	__set_PRIMASK(primask);
+	__set_PRIMASK(primask);	// was 
 	
 	if (FLASH->SR & (FLASH_SR_PROGERR | FLASH_SR_SIZERR | FLASH_SR_PGAERR | FLASH_SR_PGSERR | FLASH_SR_WRPERR | FLASH_SR_MISERR | FLASH_SR_FASTERR | FLASH_SR_RDERR))
 	{
 	    success = false;
-
 	    break;
 	}
-
 	data += chunk;
 
 	address += chunk;

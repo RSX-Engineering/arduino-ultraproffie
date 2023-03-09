@@ -30,7 +30,10 @@
 
 #include "HardwareSerial.h"
 
-#define UART_RX_BUFFER_SIZE 64
+//#define UART_RX_BUFFER_SIZE 64
+//#define UART_TX_BUFFER_SIZE 64
+
+#define UART_RX_BUFFER_SIZE 1054
 #define UART_TX_BUFFER_SIZE 64
 
 class Uart : public HardwareSerial

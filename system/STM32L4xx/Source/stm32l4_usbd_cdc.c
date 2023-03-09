@@ -127,6 +127,7 @@ static void stm32l4_usbd_cdc_resume_callback() {
 }
 
 static void stm32l4_usbd_cdc_setrxbuffer(stm32l4_usbd_cdc_device_t* device) {
+#if !defined(STM32L431xx)
   stm32l4_usbd_cdc_t *usbd_cdc = device->instances[0];
   if (device == &stm32l4_usbd_cdc_device) {
     USBD_CDC_SetRxBuffer(device->USBD, &usbd_cdc->rx_data[usbd_cdc->rx_write]);
@@ -137,6 +138,8 @@ static void stm32l4_usbd_cdc_setrxbuffer(stm32l4_usbd_cdc_device_t* device) {
   }
 
   device->rx_busy = 1;
+#endif
+
 }
 
 static void stm32l4_usbd_cdc_init2(stm32l4_usbd_cdc_device_t* device, USBD_HandleTypeDef *USBD) {
@@ -572,6 +575,7 @@ int stm32l4_usbd_cdc_peek(stm32l4_usbd_cdc_t *usbd_cdc)
 
 bool stm32l4_usbd_cdc_transmit(stm32l4_usbd_cdc_t *usbd_cdc, const uint8_t *tx_data, uint32_t tx_count)
 {
+#if !defined(STM32L431xx)
     int status = 1;
 
     /* QTG_FS interrupts need to be disabled while calling
@@ -586,7 +590,7 @@ bool stm32l4_usbd_cdc_transmit(stm32l4_usbd_cdc_t *usbd_cdc, const uint8_t *tx_d
 
 #if defined(STM32L476xx) || defined(STM32L496xx)
     NVIC_DisableIRQ(OTG_FS_IRQn);
-#else
+#elif !defined(STM32L431xx)
     NVIC_DisableIRQ(USB_IRQn);
 #endif
 
@@ -595,7 +599,7 @@ bool stm32l4_usbd_cdc_transmit(stm32l4_usbd_cdc_t *usbd_cdc, const uint8_t *tx_d
     {
 #if defined(STM32L476xx) || defined(STM32L496xx)
 	NVIC_EnableIRQ(OTG_FS_IRQn);
-#else
+#elif !defined(STM32L431xx)
 	NVIC_EnableIRQ(USB_IRQn);
 #endif
 
@@ -615,7 +619,7 @@ bool stm32l4_usbd_cdc_transmit(stm32l4_usbd_cdc_t *usbd_cdc, const uint8_t *tx_d
 	
 #if defined(STM32L476xx) || defined(STM32L496xx)
 	NVIC_EnableIRQ(OTG_FS_IRQn);
-#else
+#elif !defined(STM32L431xx)
 	NVIC_EnableIRQ(USB_IRQn);
 #endif
 	
@@ -626,6 +630,9 @@ bool stm32l4_usbd_cdc_transmit(stm32l4_usbd_cdc_t *usbd_cdc, const uint8_t *tx_d
 	
 	return true;
     }
+#else 
+	return true;
+#endif
 }
 
 bool stm32l4_usbd_cdc_done(stm32l4_usbd_cdc_t *usbd_cdc)
@@ -640,7 +647,7 @@ void stm32l4_usbd_cdc_poll(stm32l4_usbd_cdc_t *usbd_cdc)
     {
 #if defined(STM32L476xx) || defined(STM32L496xx)
 	OTG_FS_IRQHandler();
-#else
+#elif !defined(STM32L431xx)
 	USB_IRQHandler();
 #endif
     }

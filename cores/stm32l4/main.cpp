@@ -20,7 +20,6 @@
 #include "Arduino.h"
 #include "HardwareSerial.h"
 
-
 void (*serialEventCallback)(void) = NULL;
 
 // SerialEvent functions are weak, so when the user doesn't define them,
@@ -129,7 +128,7 @@ extern "C" int main( void )
     setup();
 
     for (;;)
-    {
+    { 
 	loop();
 	if (serialEventCallback) (*serialEventCallback)();
     }

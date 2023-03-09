@@ -1,58 +1,205 @@
-TOOLS    = /opt/gcc-arm-none-eabi-9-2020-q2-update
-#TOOLS    = /opt/gcc-arm-none-eabi-9-2019-q4-major
-CPP      = $(TOOLS)/bin/arm-none-eabi-cpp
-CC       = $(TOOLS)/bin/arm-none-eabi-gcc
-CXX      = $(TOOLS)/bin/arm-none-eabi-g++
-AS       = $(TOOLS)/bin/arm-none-eabi-as
-AR       = $(TOOLS)/bin/arm-none-eabi-gcc-ar
-LD       = $(TOOLS)/bin/arm-none-eabi-ld
-OPTFLAGS= -mcpu=cortex-m4 -mthumb -c -g -Os -ffunction-sections -fdata-sections -nostdlib -MMD -ffast-math -flto
-CFLAGS   = $(OPTFLAGS) $(WARNINGS) -std=gnu11 $(EXTRAS) $(DEFINES) $(INCLUDES)
-CXXFLAGS = $(OPTFLAGS)mb -c -g -Os $(WARNINGS) -fno-threadsafe-statics -fno-rtti -fno-exceptions -MMD $(EXTRAS) $(DEFINES) $(INCLUDES)
-ASFLAGS  = -c -g -x assembler-with-cpp $(EXTRAS) $(DEFINES) $(INCLUDES)
-WARNINGS = -Wall -Wextra -Wno-unused-parameter
-EXTRAS   = -D__FPU_PRESENT=1 -march=armv7e-m -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mabi=aapcs -mslow-flash-data
-DEFINES  = 
-INCLUDES = \
-	-I../../../system/CMSIS/Include \
-	-I../../../system/CMSIS/Device/ST/STM32L4xx/Include \
-	-I../../../system/STM32L4xx/Source/DAP \
-	-I../../../system/STM32L4xx/Source/USB/HAL/Inc \
-	-I../../../system/STM32L4xx/Source/USB/Core/Inc \
-	-I../../../system/STM32L4xx/Source/USB/Class/CDC/Inc \
-	-I../../../system/STM32L4xx/Source/USB/Class/MSC/Inc \
-	-I../../../system/STM32L4xx/Source/USB/Class/HID/Inc \
-	-I../../../system/STM32L4xx/Source/USB/Class/WEBUSB/Inc \
-	-I../../../system/STM32L4xx/Source/USB \
-	-I../../../system/STM32L4xx/Include \
-	-I. 
+# TOOLS    = C:\Users\user\AppData\Local\Arduino15\packages\proffieboard\tools\arm-none-eabi-gcc\9-2020-q2-update
+# #TOOLS    = /opt/gcc-arm-none-eabi-9-2019-q4-major
+# CPP      = $(TOOLS)/bin/arm-none-eabi-cpp
+# CC       = $(TOOLS)/bin/arm-none-eabi-gcc
+# CXX      = $(TOOLS)/bin/arm-none-eabi-g++
+# AS       = $(TOOLS)/bin/arm-none-eabi-as
+# AR       = $(TOOLS)/bin/arm-none-eabi-gcc-ar
+# LD       = $(TOOLS)/bin/arm-none-eabi-ld
+# OPTFLAGS= -mcpu=cortex-m4 -mthumb -c -g -Os -ffunction-sections -fdata-sections -nostdlib -MMD -ffast-math -flto
+# CFLAGS   = $(OPTFLAGS) $(WARNINGS) -std=gnu11 $(EXTRAS) $(DEFINES) $(INCLUDES)
+# CXXFLAGS = $(OPTFLAGS)mb -c -g -Os $(WARNINGS) -fno-threadsafe-statics -fno-rtti -fno-exceptions -MMD $(EXTRAS) $(DEFINES) $(INCLUDES)
+# ASFLAGS  = -c -g -x assembler-with-cpp $(EXTRAS) $(DEFINES) $(INCLUDES)
+# WARNINGS = -Wall -Wextra -Wno-unused-parameter
+# EXTRAS   = -D__FPU_PRESENT=1 -march=armv7e-m -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mabi=aapcs -mslow-flash-data
+# DEFINES  = 
+# INCLUDES = \
+# 	-I../../../system/CMSIS/Include \
+# 	-I../../../system/CMSIS/Device/ST/STM32L4xx/Include \
+# 	-I../../../system/STM32L4xx/Source/DAP \
+# 	-I../../../system/STM32L4xx/Source/USB/HAL/Inc \
+# 	-I../../../system/STM32L4xx/Source/USB/Core/Inc \
+# 	-I../../../system/STM32L4xx/Source/USB/Class/CDC/Inc \
+# 	-I../../../system/STM32L4xx/Source/USB/Class/MSC/Inc \
+# 	-I../../../system/STM32L4xx/Source/USB/Class/HID/Inc \
+# 	-I../../../system/STM32L4xx/Source/USB/Class/WEBUSB/Inc \
+# 	-I../../../system/STM32L4xx/Source/USB \
+# 	-I../../../system/STM32L4xx/Include \
+# 	-I. 
 
-BSRCS = boot_stm32l4xx.c
+# BSRCS = boot_stm32l4xx.c
 
-LSRCS = \
+# LSRCS = \
+# 	./DAP/DAP.c \
+# 	./DAP/SW_DP.c \
+# 	./USB/Class/CDC/Src/usbd_cdc.c \
+# 	./USB/Class/WEBUSB/Src/usbd_webusb.c \
+# 	./USB/Class/MSC/Src/usbd_msc.c \
+# 	./USB/Class/MSC/Src/usbd_msc_bot.c \
+# 	./USB/Class/MSC/Src/usbd_msc_data.c \
+# 	./USB/Class/MSC/Src/usbd_msc_scsi.c \
+# 	./USB/Class/HID/Src/usbd_hid.c \
+# 	./USB/Core/Src/usbd_core.c \
+# 	./USB/Core/Src/usbd_ctlreq.c \
+# 	./USB/Core/Src/usbd_ioreq.c \
+# 	./USB/HAL/Src/stm32l4xx_hal_pcd.c \
+# 	./USB/HAL/Src/stm32l4xx_hal_pcd_ex.c \
+# 	./USB/HAL/Src/stm32l4xx_ll_usb.c \
+# 	./USB/usbd_cdc_msc.c \
+# 	./USB/usbd_conf.c \
+# 	./USB/usbd_desc.c \
+# 	armv7m_atomic.c \
+# 	armv7m_core.c \
+# 	armv7m_orchid.c \
+# 	armv7m_pendsv.c \
+# 	armv7m_rtlib.S \
+# 	armv7m_svcall.c \
+# 	armv7m_systick.c \
+# 	armv7m_timer.c \
+# 	dosfs_core.c \
+# 	dosfs_device.c \
+# 	dosfs_sflash.c \
+# 	dosfs_storage.c \
+# 	stm32l4_adc.c \
+# 	stm32l4_clib.c \
+# 	stm32l4_dac.c \
+# 	stm32l4_dma.c \
+# 	stm32l4_exti.c \
+# 	stm32l4_flash.c \
+# 	stm32l4_i2c.c \
+# 	stm32l4_iwdg.c \
+# 	stm32l4_gpio.c \
+# 	stm32l4_nvic.c \
+# 	stm32l4_qspi.c \
+# 	stm32l4_rtc.c \
+# 	stm32l4_sai.c \
+# 	stm32l4_sdmmc.c \
+# 	stm32l4_sdspi.c \
+# 	stm32l4_spi.c \
+# 	stm32l4_servo.c \
+# 	stm32l4_system.c \
+# 	stm32l4_timer.c \
+# 	stm32l4_uart.c \
+# 	stm32l4_usbd_cdc.c \
+# 	stm32l4_usbd_dap.c \
+# 	stm32l4_usbd_hid.c
+	
+# LSRCS_31 = \
+# 	./DAP/DAP.c \
+# 	./DAP/SW_DP.c \
+# 	armv7m_atomic.c \
+# 	armv7m_core.c \
+# 	armv7m_orchid.c \
+# 	armv7m_pendsv.c \
+# 	armv7m_rtlib.S \
+# 	armv7m_svcall.c \
+# 	armv7m_systick.c \
+# 	armv7m_timer.c \
+# 	dosfs_core.c \
+# 	dosfs_device.c \
+# 	dosfs_sflash.c \
+# 	dosfs_storage.c \
+# 	stm32l4_adc.c \
+# 	stm32l4_clib.c \
+# 	stm32l4_dac.c \
+# 	stm32l4_dma.c \
+# 	stm32l4_exti.c \
+# 	stm32l4_flash.c \
+# 	stm32l4_i2c.c \
+# 	stm32l4_iwdg.c \
+# 	stm32l4_gpio.c \
+# 	stm32l4_nvic.c \
+# 	stm32l4_qspi.c \
+# 	stm32l4_rtc.c \
+# 	stm32l4_sai.c \
+# 	stm32l4_sdmmc.c \
+# 	stm32l4_sdspi.c \
+# 	stm32l4_spi.c \
+# 	stm32l4_servo.c \
+# 	stm32l4_system.c \
+# 	stm32l4_timer.c \
+# 	stm32l4_uart.c \
+# 	stm32l4_usbd_cdc.c \
+# 	stm32l4_usbd_dap.c \
+# 	stm32l4_usbd_hid.c
+
+# BOBJS_L431 = $(patsubst %.c,_out/stm32l431/%.o,$(BSRCS))
+# LSRCS_L431 = startup_stm32l431xx.S $(LSRCS_31) 
+# LOBJS_L431 = $(patsubst %.S,_out/stm32l431/%.o,$(filter-out %.c,$(LSRCS_L431))) $(patsubst %.c,_out/stm32l431/%.o,$(filter-out %.S,$(LSRCS_L431)))
+
+# all:: boot_stm32l431.o libstm32l431.a
+
+# install: all
+# 	cp *.a *.o ../Lib
+
+# boot_stm32l431.o:: $(BOBJS_L431)
+# 	$(LD) -r -o $@ $^
+
+# libstm32l431.a:: $(LOBJS_L431)
+# 	$(AR) rcs $@ $^
+
+# _out/stm32l431/%.o: %.c
+# 	-@mkdir -p $(dir $@)
+# 	$(CC) -DSTM32L431xx $(CFLAGS) -c $< -o $@
+
+# _out/stm32l431/%.o: %.S
+# 	-@mkdir -p $(dir $@)
+# 	$(CC) -DSTM32L431xx $(ASFLAGS) -c $< -o $@
+
+
+
+# clean::
+# 	rm -rf boot_stm32l431.o libstm32l431.a _out
+
+# -include $(BOBJS_L431:.o=.d)
+
+# -include $(LOBJS_L431:.o=.d)
+
+
+##########################################################################################################################
+# File automatically-generated by tool: [projectgenerator] version: [3.10.0-B14] date: [Tue Feb 15 11:58:39 EET 2022] 
+##########################################################################################################################
+
+# ------------------------------------------------
+# Generic Makefile (based on gcc)
+#
+# ChangeLog :
+#	2017-02-10 - Several enhancements + project update mode
+#   2015-07-22 - first version
+# ------------------------------------------------
+
+######################################
+# target
+######################################
+TARGET = prLiteTYestMakeFile
+
+
+######################################
+# building variables
+######################################
+# debug build?
+DEBUG = 1
+# optimization
+OPT = -O0
+
+
+#######################################
+# paths
+#######################################
+# Build path
+BUILD_DIR = build
+
+######################################
+# source
+######################################
+# C sources
+C_SOURCES =  \
 	./DAP/DAP.c \
 	./DAP/SW_DP.c \
-	./USB/Class/CDC/Src/usbd_cdc.c \
-	./USB/Class/WEBUSB/Src/usbd_webusb.c \
-	./USB/Class/MSC/Src/usbd_msc.c \
-	./USB/Class/MSC/Src/usbd_msc_bot.c \
-	./USB/Class/MSC/Src/usbd_msc_data.c \
-	./USB/Class/MSC/Src/usbd_msc_scsi.c \
-	./USB/Class/HID/Src/usbd_hid.c \
-	./USB/Core/Src/usbd_core.c \
-	./USB/Core/Src/usbd_ctlreq.c \
-	./USB/Core/Src/usbd_ioreq.c \
-	./USB/HAL/Src/stm32l4xx_hal_pcd.c \
-	./USB/HAL/Src/stm32l4xx_hal_pcd_ex.c \
-	./USB/HAL/Src/stm32l4xx_ll_usb.c \
-	./USB/usbd_cdc_msc.c \
-	./USB/usbd_conf.c \
-	./USB/usbd_desc.c \
 	armv7m_atomic.c \
 	armv7m_core.c \
 	armv7m_orchid.c \
 	armv7m_pendsv.c \
-	armv7m_rtlib.S \
 	armv7m_svcall.c \
 	armv7m_systick.c \
 	armv7m_timer.c \
@@ -82,120 +229,159 @@ LSRCS = \
 	stm32l4_uart.c \
 	stm32l4_usbd_cdc.c \
 	stm32l4_usbd_dap.c \
-	stm32l4_usbd_hid.c
+	stm32l4_usbd_hid.c \
+	stm32l4_crc.c \
+	platform_main.c \
 
-BOBJS_L432 = $(patsubst %.c,_out/stm32l432/%.o,$(BSRCS))
-LSRCS_L432 = startup_stm32l432xx.S $(LSRCS) 
-LOBJS_L432 = $(patsubst %.S,_out/stm32l432/%.o,$(filter-out %.c,$(LSRCS_L432))) $(patsubst %.c,_out/stm32l432/%.o,$(filter-out %.S,$(LSRCS_L432)))
-
-BOBJS_L433 = $(patsubst %.c,_out/stm32l433/%.o,$(BSRCS))
-LSRCS_L433 = startup_stm32l433xx.S $(LSRCS) 
-LOBJS_L433 = $(patsubst %.S,_out/stm32l433/%.o,$(filter-out %.c,$(LSRCS_L433))) $(patsubst %.c,_out/stm32l433/%.o,$(filter-out %.S,$(LSRCS_L433)))
-
-BOBJS_L452 = $(patsubst %.c,_out/stm32l452/%.o,$(BSRCS))
-LSRCS_L452 = startup_stm32l452xx.S $(LSRCS) 
-LOBJS_L452 = $(patsubst %.S,_out/stm32l452/%.o,$(filter-out %.c,$(LSRCS_L452))) $(patsubst %.c,_out/stm32l452/%.o,$(filter-out %.S,$(LSRCS_L452)))
-
-BOBJS_L476 = $(patsubst %.c,_out/stm32l476/%.o,$(BSRCS))
-LSRCS_L476 = startup_stm32l476xx.S $(LSRCS) 
-LOBJS_L476 = $(patsubst %.S,_out/stm32l476/%.o,$(filter-out %.c,$(LSRCS_L476))) $(patsubst %.c,_out/stm32l476/%.o,$(filter-out %.S,$(LSRCS_L476)))
-
-BOBJS_L496 = $(patsubst %.c,_out/stm32l496/%.o,$(BSRCS))
-LSRCS_L496 = startup_stm32l496xx.S $(LSRCS) 
-LOBJS_L496 = $(patsubst %.S,_out/stm32l496/%.o,$(filter-out %.c,$(LSRCS_L496))) $(patsubst %.c,_out/stm32l496/%.o,$(filter-out %.S,$(LSRCS_L496)))
-
-all:: boot_stm32l432.o boot_stm32l433.o boot_stm32l452.o boot_stm32l476.o boot_stm32l496.o libstm32l432.a libstm32l433.a libstm32l452.a libstm32l476.a  libstm32l496.a
-
-install: all
-	cp *.a *.o ../Lib
-
-boot_stm32l432.o:: $(BOBJS_L432)
-	$(LD) -r -o $@ $^
-
-libstm32l432.a:: $(LOBJS_L432)
-	$(AR) rcs $@ $^
-
-_out/stm32l432/%.o: %.c
-	-@mkdir -p $(dir $@)
-	$(CC) -DSTM32L432xx $(CFLAGS) -c $< -o $@
-
-_out/stm32l432/%.o: %.S
-	-@mkdir -p $(dir $@)
-	$(CC) -DSTM32L432xx $(ASFLAGS) -c $< -o $@
+# ASM sources
+ASM_SOURCES =  \
+armv7m_rtlib.s \
+startup_stm32l431xx.s
 
 
-boot_stm32l433.o:: $(BOBJS_L433)
-	$(LD) -r -o $@ $^
+#######################################
+# binaries
+#######################################
+GCC_PATH = C:\Users\Cosmin\AppData\Local\Arduino15\packages\UltraProffie\tools\arm-none-eabi-gcc\9-2020-q2-update\bin
+PREFIX = arm-none-eabi-
+# The gcc compiler bin path can be either defined in make command via GCC_PATH variable (> make GCC_PATH=xxx)
+# either it can be added to the PATH environment variable.
+ifdef GCC_PATH
+CC = $(GCC_PATH)/$(PREFIX)gcc
+AS = $(GCC_PATH)/$(PREFIX)gcc -x assembler-with-cpp
+CP = $(GCC_PATH)/$(PREFIX)objcopy
+SZ = $(GCC_PATH)/$(PREFIX)size
+else
+CC = $(PREFIX)gcc
+AS = $(PREFIX)gcc -x assembler-with-cpp
+CP = $(PREFIX)objcopy
+SZ = $(PREFIX)size
+endif
+HEX = $(CP) -O ihex
+BIN = $(CP) -O binary -S
+ 
+#######################################
+# CFLAGS
+#######################################
+# cpu
+CPU = -mcpu=cortex-m4
 
-libstm32l433.a:: $(LOBJS_L433)
-	$(AR) rcs $@ $^
+# fpu
+FPU = -mfpu=fpv4-sp-d16
 
-_out/stm32l433/%.o: %.c
-	-@mkdir -p $(dir $@)
-	$(CC) -DSTM32L433xx $(CFLAGS) -c $< -o $@
+# float-abi
+FLOAT-ABI = -mfloat-abi=hard
 
-_out/stm32l433/%.o: %.S
-	-@mkdir -p $(dir $@)
-	$(CC) -DSTM32L433xx $(ASFLAGS) -c $< -o $@
+# mcu
+MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
 
+# macros for gcc
+# AS defines
+AS_DEFS = 
 
-boot_stm32l452.o:: $(BOBJS_L452)
-	$(LD) -r -o $@ $^
-
-libstm32l452.a:: $(LOBJS_L452)
-	$(AR) rcs $@ $^
-
-_out/stm32l452/%.o: %.c
-	-@mkdir -p $(dir $@)
-	$(CC) -DSTM32L452xx $(CFLAGS) -c $< -o $@
-
-_out/stm32l452/%.o: %.S
-	-@mkdir -p $(dir $@)
-	$(CC) -DSTM32L452xx $(ASFLAGS) -c $< -o $@
+# C defines
+C_DEFS =  \
+-DUSE_HAL_DRIVER \
+-DSTM32L431xx
 
 
-boot_stm32l476.o:: $(BOBJS_L476)
-	$(LD) -r -o $@ $^
+# AS includes
+AS_INCLUDES = 
 
-libstm32l476.a:: $(LOBJS_L476)
-	$(AR) rcs $@ $^
+# C includes
+# C_INCLUDES =  \
+# -ICore/Inc \
+# -IDrivers/STM32L4xx_HAL_Driver/Inc \
+# -IDrivers/STM32L4xx_HAL_Driver/Inc/Legacy \
+# -IDrivers/CMSIS/Device/ST/STM32L4xx/Include \
+# -IDrivers/CMSIS/Include
+# -IDrivers/CMSIS/Include
+C_INCLUDES = \
+	-I../../../system/CMSIS/Include \
+	-I../../../system/CMSIS/Device/ST/STM32L4xx/Include \
+	-I../../../system/STM32L4xx/Source/DAP \
+	-I../../../system/STM32L4xx/Source/USB/HAL/Inc \
+	-I../../../system/STM32L4xx/Source/USB/Core/Inc \
+	-I../../../system/STM32L4xx/Source/USB/Class/CDC/Inc \
+	-I../../../system/STM32L4xx/Source/USB/Class/MSC/Inc \
+	-I../../../system/STM32L4xx/Source/USB/Class/HID/Inc \
+	-I../../../system/STM32L4xx/Source/USB/Class/WEBUSB/Inc \
+	-I../../../system/STM32L4xx/Source/USB \
+	-I../../../system/STM32L4xx/Include \
+	-I. 
 
-_out/stm32l476/%.o: %.c
-	-@mkdir -p $(dir $@)
-	$(CC) -DSTM32L476xx $(CFLAGS) -c $< -o $@
 
-_out/stm32l476/%.o: %.S
-	-@mkdir -p $(dir $@)
-	$(CC) -DSTM32L476xx $(ASFLAGS) -c $< -o $@
+# compile gcc flags
+ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+
+CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+
+ifeq ($(DEBUG), 1)
+CFLAGS += -g -gdwarf-2
+endif
 
 
-boot_stm32l496.o:: $(BOBJS_L496)
-	$(LD) -r -o $@ $^
+# Generate dependency information
+CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 
-libstm32l496.a:: $(LOBJS_L496)
-	$(AR) rcs $@ $^
 
-_out/stm32l496/%.o: %.c
-	-@mkdir -p $(dir $@)
-	$(CC) -DSTM32L496xx $(CFLAGS) -c $< -o $@
+#######################################
+# LDFLAGS
+#######################################
+# link script
+LDSCRIPT = ..\..\..\variants\STM32L431CC-ProffieLite\linker_scripts\STM32L431CC_FLASH.ld
 
-_out/stm32l496/%.o: %.S
-	-@mkdir -p $(dir $@)
-	$(CC) -DSTM32L496xx $(ASFLAGS) -c $< -o $@
+# libraries
+LIBS = -lc -lm -lnosys 
+LIBDIR = 
+LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
-clean::
-	rm -rf boot_stm32l432.o boot_stm32l433.o boot_stm32l452.o boot_stm32l476.o boot_stm32l496.o libstm32l432.a libstm32l433.a libstm32l452.a libstm32l476.a libstm32l496.a _out
+# default action: build all
+all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 
--include $(BOBJS_L432:.o=.d)
--include $(BOBJS_L433:.o=.d)
--include $(BOBJS_L452:.o=.d)
--include $(BOBJS_L476:.o=.d)
--include $(BOBJS_L496:.o=.d)
 
--include $(LOBJS_L432:.o=.d)
--include $(LOBJS_L433:.o=.d)
--include $(LOBJS_L452:.o=.d)
--include $(LOBJS_L476:.o=.d)
--include $(LOBJS_L496:.o=.d)
+#######################################
+# build the application
+#######################################
+# list of objects
+OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
+vpath %.c $(sort $(dir $(C_SOURCES)))
+# list of ASM program objects
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
+vpath %.s $(sort $(dir $(ASM_SOURCES)))
+
+$(info    VAR is $(OBJECTS))
+
+$(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR) 
+	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
+
+$(BUILD_DIR)/%.o: %.s Makefile | $(BUILD_DIR)
+	$(AS) -c $(CFLAGS) $< -o $@
+
+$(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+	$(SZ) $@
+
+$(BUILD_DIR)/%.hex: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
+	$(HEX) $< $@
+	
+$(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
+	$(BIN) $< $@	
+	
+$(BUILD_DIR):
+	mkdir $@		
+
+#######################################
+# clean up
+#######################################
+clean:
+	-rm -fR $(BUILD_DIR)
+  
+#######################################
+# dependencies
+#######################################
+-include $(wildcard $(BUILD_DIR)/*.d)
+
+# *** EOF ***
 
 

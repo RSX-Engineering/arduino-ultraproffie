@@ -37,7 +37,7 @@ static void default_irq_stm32l4xx(void);
 void reset_stm32l4xx(void);
 
 const __attribute__((section(".boot_isr_vector"), used)) uint32_t vectors_stm32l4xx[16] = {
-#if defined(STM32L432xx) || defined(STM32L433xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L431xx)
     0x2000c000,                        /* Top of Stack */
 #endif /* defined(STM32L432xx) || defined(STM32L433xx) */
 #if defined(STM32L452xx)
@@ -79,7 +79,7 @@ __attribute__((section(".bootcode"), used, noinline)) __attribute__((naked)) voi
 
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx) || defined(STM32L431xx)
     RCC->APB1ENR1 |= RCC_APB1ENR1_RTCAPBEN;
 #endif
 
@@ -134,7 +134,7 @@ __attribute__((section(".bootcode"), used, noinline)) __attribute__((naked)) voi
 	GPIOB->LCKR = 0x0000ffff;
 	GPIOB->LCKR = 0x0001ffff;
 	GPIOB->LCKR;
-#if defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L476xx) || defined(STM32L496xx)
+#if defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L476xx) || defined(STM32L496xx) || defined(STM32L431xx) 
 	GPIOC->LCKR = 0x00011fff;
 	GPIOC->LCKR = 0x00001fff;
 	GPIOC->LCKR = 0x00011fff;
@@ -146,7 +146,7 @@ __attribute__((section(".bootcode"), used, noinline)) __attribute__((naked)) voi
 	RCC->AHB2ENR &= ~(RCC_AHB2ENR_GPIOAEN | RCC_AHB2ENR_GPIOBEN | RCC_AHB2ENR_GPIOCEN); 
 #endif
 
-#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)
+#if defined(STM32L432xx) || defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L496xx)  || defined(STM32L431xx)
 	RCC->APB1ENR1 &= ~RCC_APB1ENR1_RTCAPBEN;
 #endif
 
@@ -205,11 +205,11 @@ __attribute__((section(".bootcode"), used, noinline)) __attribute__((naked)) voi
 
 	SCB->CPACR |= ((3UL << 10*2)|(3UL << 11*2));  /* set CP10 and CP11 Full Access */
 
-	SCB->VTOR = 0x08000400;
-
+	SCB->VTOR = 0x08000400; // was 0x08000400		0x20000000
 	/* Branch off to the application code. Needs to be in assembly for GCC.
-	 */
-	__asm__ volatile ("   ldr     r2, =0x08000400                \n"
+	 */	
+	// main();
+	__asm__ volatile ("   ldr     r2, =0x08000400                \n"	// 0x20000000
 			  "   ldr     r0, [r2, #0]                   \n"
 			  "   ldr     r1, [r2, #4]                   \n"
 			  "   msr     MSP, r0                        \n"

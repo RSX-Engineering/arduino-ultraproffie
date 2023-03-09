@@ -137,7 +137,7 @@
 
 #endif
 
-#if defined(STM32L433xx)
+#if defined(STM32L433xx) || defined(STM32L431xx)
 
 #define DMA_CHANNEL_DMA1_CH1_ADC1        0x01
 #define DMA_CHANNEL_DMA1_CH1_TIM2_CH3    0x41

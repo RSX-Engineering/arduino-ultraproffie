@@ -26,7 +26,7 @@
  * WITH THE SOFTWARE.
  */
 
-#if defined(STM32L476xx) || defined(STM32L496xx)
+#if defined(STM32L476xx) || defined(STM32L496xx) || defined(STM32L431xx)
 
 #include "dosfs_sflash.h"
 
@@ -67,15 +67,30 @@ static uint32_t dosfs_sflash_nor_identify(dosfs_sflash_t *sflash)
     qspi_pins.io3 = GPIO_PIN_PE15_QUADSPI_BK1_IO3;
 #endif
 
+#if defined(STM32L431xx)
+    qspi_pins.clk = GPIO_PIN_PA3_QUADSPI_CLK;
+    qspi_pins.ncs = GPIO_PIN_PA2_QUADSPI_BK1_NCS;
+    qspi_pins.io0 = GPIO_PIN_PB1_QUADSPI_BK1_IO0;
+    qspi_pins.io1 = GPIO_PIN_PB0_QUADSPI_BK1_IO1;
+    qspi_pins.io2 = GPIO_PIN_PA7_QUADSPI_BK1_IO2;
+    qspi_pins.io3 = GPIO_PIN_PA6_QUADSPI_BK1_IO3;
+#else 
     qspi_pins.clk = GPIO_PIN_PB10_QUADSPI_CLK;
     qspi_pins.ncs = GPIO_PIN_PB11_QUADSPI_BK1_NCS;
     qspi_pins.io0 = GPIO_PIN_PB1_QUADSPI_BK1_IO0;
     qspi_pins.io1 = GPIO_PIN_PB0_QUADSPI_BK1_IO1;
     qspi_pins.io2 = GPIO_PIN_PA7_QUADSPI_BK1_IO2;
     qspi_pins.io3 = GPIO_PIN_PA6_QUADSPI_BK1_IO3;
+#endif
 
+#if defined(STM32L431xx)
+    // ### FIXME: IRQ LEVEL needs to be adjusted !!!
+    stm32l4_qspi_create(&sflash->qspi, QSPI_INSTANCE_QUADSPI, &qspi_pins, 11, QSPI_MODE_DMA | QSPI_MODE_DMA_SECONDARY); // was QSPI_MODE_DMA	QSPI_MODE_DMA_SECONDARY
+#else 
     // ### FIXME: IRQ LEVEL needs to be adjusted !!!
     stm32l4_qspi_create(&sflash->qspi, QSPI_INSTANCE_QUADSPI, &qspi_pins, 11, QSPI_MODE_DMA);
+#endif
+
     stm32l4_qspi_enable(&sflash->qspi, 40000000, QSPI_OPTION_MODE_3, NULL, NULL, 0);
 
     stm32l4_qspi_select(&sflash->qspi);
@@ -101,6 +116,10 @@ static uint32_t dosfs_sflash_nor_identify(dosfs_sflash_t *sflash)
 	sflash->features |= DOSFS_SFLASH_FEATURE_RDSCUR;
 	break;
 	
+	// case 0x1f:	/* ADESTO */
+	// sflash->features |= DOSFS_SFLASH_FEATURE_RDSR;
+	// break;
+
     default:
 	break;
     }
@@ -216,6 +235,7 @@ static uint32_t dosfs_sflash_nor_identify(dosfs_sflash_t *sflash)
 
 		    case 0x01:  /* SPANSION */
 		    case 0xbf:  /* MICROCHIP */
+			case 0x1f:	/* AdestO */
 			sflash->features |= DOSFS_SFLASH_FEATURE_QE_CR_1;
 			break;
 			  
@@ -298,9 +318,60 @@ static uint32_t dosfs_sflash_nor_identify(dosfs_sflash_t *sflash)
 			    temp[1] |= 0x02;
 			      
 			    stm32l4_qspi_command(&sflash->qspi, DOSFS_SFLASH_COMMAND_WREN, 0);
-			    stm32l4_qspi_transmit(&sflash->qspi, DOSFS_SFLASH_COMMAND_WRSR, 0x000000, &temp[0], 2, 0);
+				if(sflash->mid != 0x1f)
+			    	stm32l4_qspi_transmit(&sflash->qspi, DOSFS_SFLASH_COMMAND_WRSR, 0x000000, &temp[0], 2, 0);
+				else {
+					// stm32l4_qspi_transmit(&sflash->qspi, DOSFS_SFLASH_COMMAND_WRSR2, 0x000000, &temp[1], 1, 0);
+					temp[0] &= 0b10000011;
+					stm32l4_qspi_transmit(&sflash->qspi, DOSFS_SFLASH_COMMAND_WRSR, 0x000000, &temp[0], 2, 0);
+				}
 
 			    do
+			    {
+				stm32l4_qspi_receive(&sflash->qspi, DOSFS_SFLASH_COMMAND_RDSR, 0x000000, &temp[0], 1, 0);
+			    }
+			    while (temp[0] & 0x01);
+
+				while(temp[0] &= 0b01111100)
+				{	
+					stm32l4_qspi_command(&sflash->qspi, DOSFS_SFLASH_COMMAND_WREN, 0);
+					// stm32l4_qspi_command(&sflash->qspi, DOSFS_SFLASH_COMMAND_WREN_VOLATILE, 0);
+					temp[0] &= 0b10000011;
+					stm32l4_qspi_transmit(&sflash->qspi, DOSFS_SFLASH_COMMAND_WRSR, 0x000000, &temp[0], 1, 0);
+					do
+					{
+						stm32l4_qspi_receive(&sflash->qspi, DOSFS_SFLASH_COMMAND_RDSR, 0x000000, &temp[0], 1, 0);
+					}
+					while (temp[0] & 0x01);
+				}
+
+				if(sflash->mid == 0x1f)
+				{
+					stm32l4_qspi_receive(&sflash->qspi, DOSFS_SFLASH_COMMAND_RDCR, 0x000000, &temp[1], 1, 0);
+					while (!(temp[1] & 0x02))
+					{
+						stm32l4_qspi_command(&sflash->qspi, DOSFS_SFLASH_COMMAND_WREN, 0);
+						temp[1] |= 0x02;
+						stm32l4_qspi_transmit(&sflash->qspi, DOSFS_SFLASH_COMMAND_WRSR2, 0x000000, &temp[1], 1, 0);
+						
+						do
+						{
+							stm32l4_qspi_receive(&sflash->qspi, DOSFS_SFLASH_COMMAND_RDSR, 0x000000, &temp[0], 1, 0);
+						}
+						while (temp[0] & 0x01);
+
+						stm32l4_qspi_receive(&sflash->qspi, DOSFS_SFLASH_COMMAND_RDCR, 0x000000, &temp[1], 1, 0);
+					}
+		
+				}
+
+			}
+			if(temp[0] & 0b11111100)
+			{	
+				temp[0] &= 0b00000011;
+				stm32l4_qspi_command(&sflash->qspi, DOSFS_SFLASH_COMMAND_WREN, 0);
+				stm32l4_qspi_transmit(&sflash->qspi, DOSFS_SFLASH_COMMAND_WRSR, 0x000000, &temp[0], 1, 0);
+				do
 			    {
 				stm32l4_qspi_receive(&sflash->qspi, DOSFS_SFLASH_COMMAND_RDSR, 0x000000, &temp[0], 1, 0);
 			    }
@@ -326,6 +397,7 @@ static uint32_t dosfs_sflash_nor_identify(dosfs_sflash_t *sflash)
 		    switch (sflash->mid) {
 		    case 0x20:  /* MICRON */
 		    case 0xef:  /* WINBOND */
+			case 0x1f: /* ADESTO */
 			sflash->command_program = (address_bits | QSPI_COMMAND_DATA_QUAD | QSPI_COMMAND_ADDRESS_SINGLE | QSPI_COMMAND_INSTRUCTION_SINGLE | 0x32);
 			break;
 			      
@@ -2514,6 +2586,7 @@ static int dosfs_sflash_read(void *context, uint32_t address, uint8_t *data, uin
 {
     dosfs_sflash_t *sflash = (dosfs_sflash_t*)context;
     int status = F_NO_ERROR;
+	uint8_t *localDataPointer = data;	// added 
 
 #if (DOSFS_CONFIG_SFLASH_SIMULATE_TRACE == 1)
     printf("SFLASH_READ %08x, %d\n", address, length);
@@ -2527,11 +2600,14 @@ static int dosfs_sflash_read(void *context, uint32_t address, uint8_t *data, uin
     {
 	stm32l4_qspi_select(&sflash->qspi);
 
+
 	while (length--)
-	{
-	    dosfs_sflash_ftl_read(sflash, address, data);
-	    
+	{	
+
+	    dosfs_sflash_ftl_read(sflash, address, localDataPointer); // was data 
 	    address++;
+
+		localDataPointer += DOSFS_SFLASH_BLOCK_SIZE;			 // added 
 	}
 
 	stm32l4_qspi_unselect(&sflash->qspi);
@@ -2544,7 +2620,7 @@ static int dosfs_sflash_write(void *context, uint32_t address, const uint8_t *da
 {
     dosfs_sflash_t *sflash = (dosfs_sflash_t*)context;
     int status = F_NO_ERROR;
-
+	const uint8_t *localDataPointer = data;			// added 
 #if (DOSFS_CONFIG_SFLASH_SIMULATE_TRACE == 1)
     printf("SFLASH_WRITE %08x, %d\n", address, length);
 #endif /* (DOSFS_CONFIG_SFLASH_SIMULATE_TRACE == 1) */
@@ -2559,8 +2635,8 @@ static int dosfs_sflash_write(void *context, uint32_t address, const uint8_t *da
 
 	while (length--)
 	{
-	    dosfs_sflash_ftl_write(sflash, address, data);
-	    
+	    dosfs_sflash_ftl_write(sflash, address, localDataPointer);	// was data 
+	    localDataPointer += DOSFS_SFLASH_BLOCK_SIZE; // added 
 	    address++;
 	}
 
@@ -2652,4 +2728,4 @@ int dosfs_sflash_init(void)
     return status;
 }
 
-#endif /* defined(STM32L476xx) || defined(STM32L496xx) */
+#endif /* defined(STM32L476xx) || defined(STM32L496xx) || defined(STM32L431xx) */

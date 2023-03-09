@@ -11,3 +11,10 @@ stlink.protocol=stlink
 stlink.program.protocol=
 stlink.program.tool=stm32l4_openocd
 stlink.program.extra_params=
+
+uartSerial.name=UART SERIAL
+uartSerial.communication=USB
+uartSerial.protocol=uartSerial
+uartSerial.program.protocol=
+uartSerial.program.tool=stm32l4_serial
+uartSerial.program.extra_params=

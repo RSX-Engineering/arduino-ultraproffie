@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016 Thomas Roell.  All rights reserved.
- *
+ * Proffie OSX - added modification to be compliant with new HW 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
  * deal with the Software without restriction, including without limitation the
@@ -30,6 +30,13 @@
 #include "stm32l4_wiring_private.h"
 #include "stm32l4_iap.h"
 #include "dosfs_api.h"
+#if (DOSFS_SFLASH >= 1)
+	#include "dosfs_sflash.h"
+#endif
+
+#ifdef ULTRA_PROFFIE
+	CRC_HandleTypeDef stm32l4_crc;
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,6 +51,9 @@ const __attribute__((section(".iap_prefix"))) stm32l4_iap_prefix_t stm32l4_iap_p
 };
 
 const __attribute__((section(".iap_info"))) stm32l4_iap_info_t stm32l4_iap_info = {
+#if defined(STM32L431xx)
+    .signature = "STM32L431xx",
+#endif
 #if defined(STM32L432xx)
     .signature = "STM32L432xx",
 #endif
@@ -130,7 +140,8 @@ void UsageFault_Handler(void)
 
 void init( void )
 {
-    stm32l4_system_initialize(_SYSTEM_CORE_CLOCK_, _SYSTEM_CORE_CLOCK_/2, _SYSTEM_CORE_CLOCK_/2, STM32L4_CONFIG_LSECLK, STM32L4_CONFIG_HSECLK, STM32L4_CONFIG_SYSOPT);
+    //stm32l4_system_initialize(_SYSTEM_CORE_CLOCK_, _SYSTEM_CORE_CLOCK_/2, _SYSTEM_CORE_CLOCK_/2, STM32L4_CONFIG_LSECLK, STM32L4_CONFIG_HSECLK, STM32L4_CONFIG_SYSOPT);
+    stm32l4_system_initialize(_SYSTEM_CORE_CLOCK_, _SYSTEM_CORE_CLOCK_/2, _SYSTEM_CORE_CLOCK_/2, 0, STM32L4_CONFIG_HSECLK, STM32L4_CONFIG_SYSOPT);
 
     armv7m_svcall_initialize();
     armv7m_pendsv_initialize();
@@ -185,8 +196,30 @@ void init( void )
     stm32l4_sdmmc_initialize(STM32L4_SDMMC_OPTION_HIGH_SPEED);
 #endif
 #if (DOSFS_SFLASH >= 1)
-    dosfs_sflash_init();
+    int dosfs_result;
+    dosfs_result = dosfs_sflash_init();
+    if(dosfs_result)
+    {
+        dosfs_result = 0; // make this so i can breakpoint it 
+    }
 #endif
+	stm32l4_gpio_pin_configure(GPIO_PIN_PB2, GPIO_MODE_OUTPUT | GPIO_OTYPE_PUSHPULL | GPIO_OSPEED_LOW | GPIO_PUPD_PULLDOWN);
+	
+    //stm32l4_gpio_pin_configure(GPIO_PIN_PB15, GPIO_MODE_OUTPUT | GPIO_OTYPE_PUSHPULL | GPIO_OSPEED_LOW | GPIO_PUPD_PULLDOWN);
+// TODO put defines here 
+#ifdef ULTRA_PROFFIE
+  stm32l4_crc.Instance = CRC;
+  stm32l4_crc.Init.DefaultPolynomialUse = DEFAULT_POLYNOMIAL_ENABLE;
+  stm32l4_crc.Init.DefaultInitValueUse = DEFAULT_INIT_VALUE_ENABLE;
+  stm32l4_crc.Init.InputDataInversionMode = CRC_INPUTDATA_INVERSION_NONE;
+  stm32l4_crc.Init.OutputDataInversionMode = CRC_OUTPUTDATA_INVERSION_DISABLE;
+  stm32l4_crc.InputDataFormat = CRC_INPUTDATA_FORMAT_BYTES;
+  if (HAL_CRC_Init(&stm32l4_crc) != HAL_CRC_OK)
+  {
+	  // manage error 
+  }
+#endif
+//end defines
 
     /* This is here to work around a linker issue in avr/fdevopen.c */
     asm(".global stm32l4_stdio_put");

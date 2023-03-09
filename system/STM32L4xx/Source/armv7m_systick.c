@@ -47,7 +47,7 @@ typedef struct _armv7m_systick_control_t {
 
 static armv7m_systick_control_t armv7m_systick_control;
 
-uint64_t armv7m_systick_millis(void)
+uint64_t PF_MOVE_TO_RAM_ATT armv7m_systick_millis(void)
 {
     return armv7m_systick_control.millis;
 }
@@ -69,7 +69,7 @@ uint64_t armv7m_systick_micros(void)
     return micros;
 }
 
-void armv7m_systick_delay(uint32_t delay)
+void PF_MOVE_TO_RAM_ATT armv7m_systick_delay(uint32_t delay)
 {
     uint64_t millis;
 
@@ -132,7 +132,7 @@ void armv7m_systick_disable(void)
     SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;
 }
 
-void SysTick_Handler(void)
+void SysTick_Handler(void)  // PF_MOVE_TO_RAM_ATT PF_MOVE_TO_RAM_ATT
 {
     armv7m_systick_control.micros += 1000;
     armv7m_systick_control.millis += 1;
@@ -162,3 +162,31 @@ void SysTick_Handler(void)
 	armv7m_pendsv_enqueue((armv7m_pendsv_routine_t)armv7m_systick_control.callback, armv7m_systick_control.context, (uint32_t)armv7m_systick_control.millis);
     }
 }
+
+void PF_MOVE_TO_RAM_ATT SysTick_Handler_RAM(void)  // PF_MOVE_TO_RAM_ATT PF_MOVE_TO_RAM_ATT
+{
+    armv7m_systick_control.micros += 1000;
+    armv7m_systick_control.millis += 1;
+
+    /* If SYSCLK is driven throu MSI with LSE PLL then the frequency
+     * is not a multiple of 1000. Hence use a fractional scheme to
+     * distribute the fractional part.
+     */
+    if (armv7m_systick_control.frac)
+    {
+	armv7m_systick_control.accum += armv7m_systick_control.frac;
+
+	if (armv7m_systick_control.accum >= 1000)
+	{
+	    armv7m_systick_control.accum -= 1000;
+
+	    SysTick->LOAD = (armv7m_systick_control.cycle - 1) + 1;
+	}
+	else
+	{
+	    SysTick->LOAD = (armv7m_systick_control.cycle - 1);
+	}
+    }
+    
+}
+

@@ -48,21 +48,21 @@ size_t File::write(const uint8_t *buf, size_t size) {
     return f_write(buf, 1, size, _file);
 }
 
-int File::available() {
+int PF_MOVE_TO_RAM_ATT File::available() {
     if (!_file)
         return 0;
 
     return f_length(_file) - f_tell(_file);
 }
 
-int File::read() {
+int PF_MOVE_TO_RAM_ATT File::read() {
     if (!_file)
         return -1;
 
     return f_getc(_file);
 }
 
-size_t File::read(uint8_t* buf, size_t size) {
+size_t PF_MOVE_TO_RAM_ATT File::read(uint8_t* buf, size_t size) {
     if (!_file)
         return -1;
 

@@ -1,5 +1,6 @@
 /*
   Copyright (c) 2015 Arduino LLC.  All right reserved.
+  Proffie OSX - Added some modification to be compliant with separte platform compilation 
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -53,12 +54,34 @@
 #define SERIAL_7O2	(HARDSER_STOP_BIT_2 | HARDSER_PARITY_ODD  | HARDSER_DATA_7)
 #define SERIAL_8O2	(HARDSER_STOP_BIT_2 | HARDSER_PARITY_ODD  | HARDSER_DATA_8)
 
+// class HardwareSerial : public Stream
+// {
+//   public:
+//     virtual void begin(unsigned long);
+//     virtual void begin(unsigned long baudrate, uint16_t config);
+//     virtual void end();
+//     virtual int available(void) = 0;
+//     virtual int peek(void) = 0;
+//     virtual int read(void) = 0;
+//     virtual void flush(void) = 0;
+//     virtual size_t write(uint8_t) = 0;
+//     using Print::write; // pull in write(str) and write(buf, size) from Print
+//     virtual operator bool() = 0;
+// };
+
+// extern void (*serialEventCallback)(void);
+// extern void serialEventDispatch(void);
+
 class HardwareSerial : public Stream
 {
   public:
-    virtual void begin(unsigned long);
-    virtual void begin(unsigned long baudrate, uint16_t config);
-    virtual void end();
+  
+	HardwareSerial() {};
+	virtual ~HardwareSerial() {};
+  
+    virtual void begin(unsigned long) {};
+    virtual void begin(unsigned long baudrate, uint16_t config) {};
+    virtual void end() {};
     virtual int available(void) = 0;
     virtual int peek(void) = 0;
     virtual int read(void) = 0;

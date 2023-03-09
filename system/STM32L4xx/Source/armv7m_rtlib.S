@@ -63,7 +63,7 @@ __aeabi_memclr8  = memzero
 __aeabi_memset4  = __aeabi_memset
 __aeabi_memset8  = __aeabi_memset
 	
-        .section .text.memcpy, "ax"
+        .section .rodata2.memcpy, "ax"
 	.thumb
 	.thumb_func
 	.type	memcpy, %function

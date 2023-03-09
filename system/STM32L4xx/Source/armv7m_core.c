@@ -96,8 +96,8 @@ int armv7m_core_priority(void)
 
     return priority;
 }
-
-void armv7m_core_udelay(uint32_t delay)
+// void armv7m_core_udelay(uint32_t delay)
+void __attribute__((section(".data2"))) armv7m_core_udelay(uint32_t delay)	 // PF_MOVE_TO_RAM_ATT 
 {
     uint32_t n;
 

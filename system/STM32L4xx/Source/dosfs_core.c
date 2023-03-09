@@ -905,7 +905,7 @@ static int dosfs_volume_unmount(dosfs_volume_t * volume)
     return status;
 }
 
-static int dosfs_volume_lock(dosfs_volume_t *volume)
+static int PF_MOVE_TO_RAM_ATT dosfs_volume_lock(dosfs_volume_t *volume) 
 {
     int status = F_NO_ERROR;
 
@@ -934,7 +934,7 @@ static int dosfs_volume_lock(dosfs_volume_t *volume)
 		}
 		else
 		{
-		    status = dosfs_volume_mount(volume);
+		    status = dosfs_volume_mount(volume);	
 		}
 	    }
 	}
@@ -962,7 +962,7 @@ static int  dosfs_volume_lock_nomount(dosfs_volume_t *volume)
     return status;
 }
 
-static int dosfs_volume_unlock(dosfs_volume_t *volume, int status)
+static int PF_MOVE_TO_RAM_ATT dosfs_volume_unlock(dosfs_volume_t *volume, int status) 
 {
     if (status != F_NO_ERROR)
     {
@@ -989,7 +989,7 @@ static int dosfs_volume_unlock(dosfs_volume_t *volume, int status)
     return status;
 }
 
-static int dosfs_volume_read(dosfs_volume_t *volume, uint32_t address, uint8_t *data)
+static int PF_MOVE_TO_RAM_ATT dosfs_volume_read(dosfs_volume_t *volume, uint32_t address, uint8_t *data)
 {
     int status = F_NO_ERROR;
     dosfs_device_t *device;
@@ -2023,7 +2023,7 @@ static int dosfs_volume_format(dosfs_volume_t *volume)
 
 /***********************************************************************************************************************/
 
-static int dosfs_dir_cache_write(dosfs_volume_t *volume)
+static int PF_MOVE_TO_RAM_ATT dosfs_dir_cache_write(dosfs_volume_t *volume) 
 {
     int status = F_NO_ERROR;
     dosfs_device_t *device;
@@ -2114,7 +2114,7 @@ static int dosfs_dir_cache_write(dosfs_volume_t *volume)
     return status;
 }
 
-static int dosfs_dir_cache_fill(dosfs_volume_t *volume, uint32_t blkno, int zero)
+static int PF_MOVE_TO_RAM_ATT dosfs_dir_cache_fill(dosfs_volume_t *volume, uint32_t blkno, int zero)
 {
     int status = F_NO_ERROR;
 
@@ -2154,7 +2154,7 @@ static int dosfs_dir_cache_fill(dosfs_volume_t *volume, uint32_t blkno, int zero
     return status;
 }
 
-static int dosfs_dir_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
+static int PF_MOVE_TO_RAM_ATT dosfs_dir_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry) 
 {
     int status = F_NO_ERROR;
 
@@ -2628,7 +2628,7 @@ static int dosfs_fat_cache_write(dosfs_volume_t *volume, dosfs_cache_entry_t *en
     return status;
 }
 
-static int dosfs_fat_cache_fill(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
+static int PF_MOVE_TO_RAM_ATT dosfs_fat_cache_fill(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
 {
     int status = F_NO_ERROR;
 
@@ -2660,7 +2660,7 @@ static int dosfs_fat_cache_fill(dosfs_volume_t *volume, uint32_t blkno, dosfs_ca
     return status;
 }
 
-static int dosfs_fat_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
+static int PF_MOVE_TO_RAM_ATT dosfs_fat_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
 {
     int status = F_NO_ERROR;
 
@@ -2729,7 +2729,7 @@ static int dosfs_fat_cache_write(dosfs_volume_t *volume, dosfs_cache_entry_t *en
     return status;
 }
 
-static int dosfs_fat_cache_fill(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
+static int PF_MOVE_TO_RAM_ATT dosfs_fat_cache_fill(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
 {
     int status = F_NO_ERROR;
     unsigned int index;
@@ -2791,7 +2791,7 @@ static int dosfs_fat_cache_fill(dosfs_volume_t *volume, uint32_t blkno, dosfs_ca
     return status;
 }
 
-static int dosfs_fat_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
+static int PF_MOVE_TO_RAM_ATT dosfs_fat_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
 {
     int status = F_NO_ERROR;
     unsigned int index;
@@ -2849,7 +2849,7 @@ static inline int dosfs_fat_cache_write(dosfs_volume_t *volume, dosfs_cache_entr
 
 #if (DOSFS_CONFIG_TRANSACTION_SAFE_SUPPORTED == 1)
 
-static int dosfs_fat_cache_fill(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
+static int PF_MOVE_TO_RAM_ATT dosfs_fat_cache_fill(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
 {
     int status = F_NO_ERROR;
 
@@ -2881,7 +2881,7 @@ static int dosfs_fat_cache_fill(dosfs_volume_t *volume, uint32_t blkno, dosfs_ca
     return status;
 }
 
-static int dosfs_fat_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
+static int PF_MOVE_TO_RAM_ATT dosfs_fat_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
 {
     int status = F_NO_ERROR;
 
@@ -2904,7 +2904,7 @@ static int dosfs_fat_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_ca
 
 #else /* (DOSFS_CONFIG_TRANSACTION_SAFE_SUPPORTED == 1) */
 
-static int dosfs_fat_cache_fill(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
+static int PF_MOVE_TO_RAM_ATT dosfs_fat_cache_fill(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
 {
     int status = F_NO_ERROR;
 
@@ -2917,7 +2917,7 @@ static int dosfs_fat_cache_fill(dosfs_volume_t *volume, uint32_t blkno, dosfs_ca
 
 #if (DOSFS_CONFIG_STATISTICS == 1)
 
-static int dosfs_fat_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
+static int PF_MOVE_TO_RAM_ATT dosfs_fat_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
 {
     int status = F_NO_ERROR;
 
@@ -2940,7 +2940,7 @@ static int dosfs_fat_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_ca
 
 #else /* (DOSFS_CONFIG_STATISTICS == 1) */
 
-static inline int dosfs_fat_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
+static inline int PF_MOVE_TO_RAM_ATT dosfs_fat_cache_read(dosfs_volume_t *volume, uint32_t blkno, dosfs_cache_entry_t **p_entry)
 {
     return dosfs_dir_cache_read(volume, blkno, p_entry);
 }
@@ -2975,7 +2975,7 @@ static int dosfs_fat_cache_flush(dosfs_volume_t *volume)
 #if (DOSFS_CONFIG_DATA_CACHE_ENTRIES != 0)
 #if (DOSFS_CONFIG_FILE_DATA_CACHE == 1)
 
-static int dosfs_data_cache_write(dosfs_volume_t *volume, dosfs_file_t *file)
+static int PF_MOVE_TO_RAM_ATT dosfs_data_cache_write(dosfs_volume_t *volume, dosfs_file_t *file)
 {
     int status = F_NO_ERROR;
     dosfs_device_t *device;
@@ -3015,7 +3015,7 @@ static int dosfs_data_cache_write(dosfs_volume_t *volume, dosfs_file_t *file)
     return status;
 }
 
-static int dosfs_data_cache_fill(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t blkno, int zero)
+static int PF_MOVE_TO_RAM_ATT dosfs_data_cache_fill(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t blkno, int zero)
 {
     int status = F_NO_ERROR;
     dosfs_device_t *device;
@@ -3070,7 +3070,7 @@ static int dosfs_data_cache_fill(dosfs_volume_t *volume, dosfs_file_t *file, uin
     return status;
 }
 
-static int dosfs_data_cache_read(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t blkno, dosfs_cache_entry_t ** p_entry)
+static int PF_MOVE_TO_RAM_ATT dosfs_data_cache_read(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t blkno, dosfs_cache_entry_t ** p_entry)
 {
     int status = F_NO_ERROR;
 
@@ -3143,7 +3143,7 @@ static int dosfs_data_cache_invalidate(dosfs_volume_t *volume, dosfs_file_t *fil
 
 #else /* (DOSFS_CONFIG_FILE_DATA_CACHE == 1) */
 
-static int dosfs_data_cache_write(dosfs_volume_t *volume, dosfs_file_t *file)
+static int PF_MOVE_TO_RAM_ATT dosfs_data_cache_write(dosfs_volume_t *volume, dosfs_file_t *file)
 {
     int status = F_NO_ERROR;
     dosfs_device_t *device;
@@ -3182,7 +3182,7 @@ static int dosfs_data_cache_write(dosfs_volume_t *volume, dosfs_file_t *file)
     return status;
 }
 
-static int dosfs_data_cache_fill(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t blkno, int zero)
+static int PF_MOVE_TO_RAM_ATT dosfs_data_cache_fill(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t blkno, int zero)
 {
     int status = F_NO_ERROR;
     dosfs_device_t *device;
@@ -3237,7 +3237,7 @@ static int dosfs_data_cache_fill(dosfs_volume_t *volume, dosfs_file_t *file, uin
     return status;
 }
 
-static int dosfs_data_cache_read(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t blkno, dosfs_cache_entry_t ** p_entry)
+static int PF_MOVE_TO_RAM_ATT dosfs_data_cache_read(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t blkno, dosfs_cache_entry_t ** p_entry)
 {
     int status = F_NO_ERROR;
 
@@ -3312,7 +3312,7 @@ static int dosfs_data_cache_invalidate(dosfs_volume_t *volume, dosfs_file_t *fil
 
 #else /* (DOSFS_CONFIG_DATA_CACHE_ENTRIES != 0) */
 
-static int dosfs_data_cache_write(dosfs_volume_t *volume, dosfs_file_t *file)
+static int PF_MOVE_TO_RAM_ATT dosfs_data_cache_write(dosfs_volume_t *volume, dosfs_file_t *file)
 {
     int status = F_NO_ERROR;
 
@@ -3329,7 +3329,7 @@ static int dosfs_data_cache_write(dosfs_volume_t *volume, dosfs_file_t *file)
     return status;
 }
 
-static int dosfs_data_cache_fill(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t blkno, int zero)
+static int PF_MOVE_TO_RAM_ATT dosfs_data_cache_fill(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t blkno, int zero) 
 {
     int status = F_NO_ERROR;
     dosfs_device_t *device;
@@ -3382,7 +3382,7 @@ static int dosfs_data_cache_fill(dosfs_volume_t *volume, dosfs_file_t *file, uin
     return status;
 }
 
-static int dosfs_data_cache_read(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t blkno, dosfs_cache_entry_t ** p_entry)
+static int PF_MOVE_TO_RAM_ATT dosfs_data_cache_read(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t blkno, dosfs_cache_entry_t ** p_entry) 
 {
     int status = F_NO_ERROR;
 
@@ -3425,7 +3425,7 @@ static inline void dosfs_data_cache_modify(dosfs_volume_t *volume, dosfs_file_t 
     volume->data_file = file;
 }
 
-static int dosfs_data_cache_flush(dosfs_volume_t *volume, dosfs_file_t *file)
+static int PF_MOVE_TO_RAM_ATT dosfs_data_cache_flush(dosfs_volume_t *volume, dosfs_file_t *file)
 {
     int status = F_NO_ERROR;
 
@@ -3460,7 +3460,7 @@ static int dosfs_data_cache_invalidate(dosfs_volume_t *volume, dosfs_file_t *fil
 
 /***********************************************************************************************************************/
 
-static int dosfs_cluster_read_uncached(dosfs_volume_t *volume, uint32_t clsno, uint32_t *p_clsdata)
+static int PF_MOVE_TO_RAM_ATT dosfs_cluster_read_uncached(dosfs_volume_t *volume, uint32_t clsno, uint32_t *p_clsdata) 
 {
     int status = F_NO_ERROR;
     uint32_t offset, blkno, clsdata;
@@ -3593,7 +3593,7 @@ static int dosfs_cluster_read(dosfs_volume_t *volume, uint32_t clsno, uint32_t *
 
 #else /* (DOSFS_CONFIG_CLUSTER_CACHE_ENTRIES != 0) */
 
-static inline int dosfs_cluster_read(dosfs_volume_t *volume, uint32_t clsno, uint32_t *p_clsdata)
+static inline int PF_MOVE_TO_RAM_ATT dosfs_cluster_read(dosfs_volume_t *volume, uint32_t clsno, uint32_t *p_clsdata)
 {
     return dosfs_cluster_read_uncached(volume, clsno, p_clsdata);
 }
@@ -3711,7 +3711,7 @@ static int dosfs_cluster_write(dosfs_volume_t *volume, uint32_t clsno, uint32_t 
 }
 
 
-static int dosfs_cluster_chain_seek(dosfs_volume_t *volume, uint32_t clsno, uint32_t clscnt, uint32_t *p_clsno)
+static int PF_MOVE_TO_RAM_ATT dosfs_cluster_chain_seek(dosfs_volume_t *volume, uint32_t clsno, uint32_t clscnt, uint32_t *p_clsno) 
 {
     int status = F_NO_ERROR;
     uint32_t clsdata;
@@ -7210,7 +7210,7 @@ static int dosfs_file_flush(dosfs_volume_t *volume, dosfs_file_t *file, int clos
     return status;
 }
 
-static int dosfs_file_seek(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t position)
+static int PF_MOVE_TO_RAM_ATT dosfs_file_seek(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t position)
 {
     int status = F_NO_ERROR;
     uint32_t clsno, clscnt, offset;
@@ -7330,7 +7330,7 @@ static int dosfs_file_seek(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t 
     return status;
 }
 
-static int dosfs_file_shrink(dosfs_volume_t *volume, dosfs_file_t *file)
+static int PF_MOVE_TO_RAM_ATT dosfs_file_shrink(dosfs_volume_t *volume, dosfs_file_t *file)
 {
     int status = F_NO_ERROR;
 
@@ -7443,7 +7443,7 @@ static int dosfs_file_shrink(dosfs_volume_t *volume, dosfs_file_t *file)
     return status;
 }
 
-static int dosfs_file_extend(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t length)
+static int PF_MOVE_TO_RAM_ATT dosfs_file_extend(dosfs_volume_t *volume, dosfs_file_t *file, uint32_t length)
 {
     int status = F_NO_ERROR;
     uint32_t clsno, clscnt, clsno_a, clsno_l, clsno_n, clsdata, blkno, blkno_e, blkcnt, count, size, position, offset, length_o;
@@ -8198,7 +8198,7 @@ static int dosfs_file_close(dosfs_volume_t *volume, dosfs_file_t *file)
     return status;
 }
 
-static int dosfs_file_read(dosfs_volume_t *volume, dosfs_file_t *file, uint8_t *data, uint32_t count, uint32_t *p_count)
+static int PF_MOVE_TO_RAM_ATT dosfs_file_read(dosfs_volume_t *volume, dosfs_file_t *file, uint8_t *data, uint32_t count, uint32_t *p_count) 
 {
     int status = F_NO_ERROR;
     dosfs_device_t *device;
@@ -10658,7 +10658,7 @@ long f_write(const void *buffer, long size, long count, F_FILE *file)
     return result;
 }
 
-long f_read(void *buffer, long size, long count, F_FILE *file)
+long PF_MOVE_TO_RAM_ATT f_read(void *buffer, long size, long count, F_FILE *file) 
 {
     int status = F_NO_ERROR;
     long result = 0;
@@ -10781,7 +10781,7 @@ int f_seek(F_FILE *file, long offset, int whence)
     return status;
 }
 
-long f_tell(F_FILE *file)
+long PF_MOVE_TO_RAM_ATT f_tell(F_FILE *file)
 {
     int status = F_NO_ERROR;
     uint32_t position;
@@ -10799,7 +10799,7 @@ long f_tell(F_FILE *file)
     return (status == F_NO_ERROR) ? (long)position : -1;
 }
 
-long f_length(F_FILE *file)
+long PF_MOVE_TO_RAM_ATT f_length(F_FILE *file)
 {
     int status = F_NO_ERROR;
     uint32_t length;

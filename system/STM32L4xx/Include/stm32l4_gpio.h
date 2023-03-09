@@ -93,7 +93,7 @@
 
 #endif
 
-#if defined(STM32L433xx) || defined(STM32L452xx)
+#if defined(STM32L433xx) || defined(STM32L452xx) || defined(STM32L431xx)
 
 #define GPIO_PIN_PA0			0x00
 #define GPIO_PIN_PA1			0x01
@@ -617,7 +617,7 @@
 
 #endif
 
-#if defined(STM32L433xx)
+#if defined(STM32L433xx) || defined(STM32L431xx)
 
 #define GPIO_PIN_PA8_MCO		0x0008
 #define GPIO_PIN_PA13_JTMS_SWDIO	0x000d
@@ -2799,7 +2799,7 @@
 
 #define GPIO_PIN_MASK(_pin)		(1ul << ((_pin) & 15))
 
-static inline void stm32l4_gpio_pin_write(unsigned int pin, unsigned int data)
+static inline void PF_MOVE_TO_RAM_ATT stm32l4_gpio_pin_write(unsigned int pin, unsigned int data) // PF_MOVE_TO_RAM_ATT
 {
     GPIO_TypeDef *GPIO;
     uint32_t group, index;
@@ -2816,7 +2816,7 @@ static inline void stm32l4_gpio_pin_write(unsigned int pin, unsigned int data)
     }
 }
 
-static inline unsigned int stm32l4_gpio_pin_read(unsigned int pin)
+static inline unsigned int PF_MOVE_TO_RAM_ATT stm32l4_gpio_pin_read(unsigned int pin)
 {
     GPIO_TypeDef *GPIO;
     uint32_t group, index;
