@@ -55,6 +55,9 @@ extern "C" {
 #include "stm32l4_iwdg.h"
 // TODO add defines 
 #include "stm32l4_crc.h"
+#ifdef ULTRA_PROFFIE
+    #include "stm32l4_bor.h"
+#endif
 // end define
 /*
 #define STM32L4_SVCALL_IRQ_PRIORITY  15

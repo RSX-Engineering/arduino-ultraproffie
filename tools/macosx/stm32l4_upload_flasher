@@ -1,0 +1,22 @@
+#!/bin/bash
+
+TOOLDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
+
+RETRIES=10
+
+while [ $RETRIES -gt 0 ]
+do
+    if [ "$($TOOLDIR/stmcube_programmer/bin/STM32_Programmer_CLI -c port=$1 br=115200 p=even db=8 sb=1 fc=off | grep "Activating device: OK")" != "" ]
+    then
+       echo "Trying to upload"
+      $TOOLDIR/stmcube_programmer/bin/STM32_Programmer_CLI -c port=$1 br=115200 p=even db=8 sb=1 fc=off -w $2 0x08000000
+      echo "OK"
+      exit 0
+    fi
+    echo $RETRIES
+    RETRIES=$[$RETRIES -1];
+    sleep 1;
+done
+
+echo "FAIL"
+exit 0

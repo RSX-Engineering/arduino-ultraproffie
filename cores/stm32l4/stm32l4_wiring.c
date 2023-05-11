@@ -35,6 +35,7 @@
 #endif
 
 #ifdef ULTRA_PROFFIE
+    #include "stm32l4_bor.h"
 	CRC_HandleTypeDef stm32l4_crc;
 #endif
 
@@ -142,7 +143,7 @@ void init( void )
 {
     //stm32l4_system_initialize(_SYSTEM_CORE_CLOCK_, _SYSTEM_CORE_CLOCK_/2, _SYSTEM_CORE_CLOCK_/2, STM32L4_CONFIG_LSECLK, STM32L4_CONFIG_HSECLK, STM32L4_CONFIG_SYSOPT);
     stm32l4_system_initialize(_SYSTEM_CORE_CLOCK_, _SYSTEM_CORE_CLOCK_/2, _SYSTEM_CORE_CLOCK_/2, 0, STM32L4_CONFIG_HSECLK, STM32L4_CONFIG_SYSOPT);
-
+ 
     armv7m_svcall_initialize();
     armv7m_pendsv_initialize();
     armv7m_systick_initialize(STM32L4_SYSTICK_IRQ_PRIORITY);
@@ -152,6 +153,11 @@ void init( void )
 
     stm32l4_exti_create(&stm32l4_exti, STM32L4_EXTI_IRQ_PRIORITY);
     stm32l4_exti_enable(&stm32l4_exti);
+    
+    delay(1);
+#ifdef ULTRA_PROFFIE
+    stm32l4_bor_set(BOR_LEVEL1);
+#endif
 
 #if defined(PIN_SPI_SD_POWER) && (DOSFS_SDCARD != 0)
     // TODO: Power SD card on/off as needed.

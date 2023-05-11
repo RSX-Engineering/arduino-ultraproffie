@@ -1147,15 +1147,18 @@ static void dosfs_sflash_ftl_format(dosfs_sflash_t *sflash)
     uint32_t offset, erase_count, erase_info[8];
     uint32_t *cache;
 
+	#if !defined(STM32L431xx)
     stm32l4_gpio_pin_configure(GPIO_PIN_PB2, (GPIO_PUPD_NONE | GPIO_OSPEED_HIGH | GPIO_OTYPE_PUSHPULL | GPIO_MODE_OUTPUT));
     stm32l4_gpio_pin_configure(GPIO_PIN_PA10, (GPIO_PUPD_NONE | GPIO_OSPEED_HIGH | GPIO_OTYPE_PUSHPULL | GPIO_MODE_OUTPUT));
-
+	#endif
     cache = sflash->cache[0];
 
     for (offset = 0; offset < sflash->data_size; offset += DOSFS_SFLASH_ERASE_SIZE)
     {
+	#if !defined(STM32L431xx)
 	stm32l4_gpio_pin_write(GPIO_PIN_PB2, !(offset & DOSFS_SFLASH_ERASE_SIZE));
 	stm32l4_gpio_pin_write(GPIO_PIN_PA10, !!(offset & DOSFS_SFLASH_ERASE_SIZE));
+	#endif
 
 	erase_count = 1;
 
@@ -1202,9 +1205,11 @@ static void dosfs_sflash_ftl_format(dosfs_sflash_t *sflash)
     memset(&sflash_data_shadow, 0xff, sizeof(sflash_data_shadow));
     memset(&sflash_xlate_shadow, 0xff, sizeof(sflash_xlate_shadow));
 #endif /* DOSFS_CONFIG_SFLASH_DEBUG == 1 */
-
+	#if !defined(STM32L431xx)
     stm32l4_gpio_pin_configure(GPIO_PIN_PB2, (GPIO_PUPD_NONE | GPIO_OSPEED_HIGH | GPIO_OTYPE_PUSHPULL | GPIO_MODE_INPUT));
     stm32l4_gpio_pin_configure(GPIO_PIN_PA10, (GPIO_PUPD_NONE | GPIO_OSPEED_HIGH | GPIO_OTYPE_PUSHPULL | GPIO_MODE_INPUT));
+	#endif
+
 }
 
 /* Modify XLATE/XLATE_SECONDARY mappings. Assumption is that XLATE/XLATE_SECONDARY already

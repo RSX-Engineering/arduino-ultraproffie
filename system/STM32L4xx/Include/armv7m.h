@@ -35,7 +35,7 @@
  extern "C" {
 #endif
 
-static inline __attribute__((section(".rodata2"))) void armv7m_core_yield(void)
+static inline __attribute__((section(".data2"))) void armv7m_core_yield(void)
 {
     /* This odd aequence seems to be required for at least STM32L4. Traces on the logic analyzer
      * showed that after blocking on wfe, then the subsequent wfe would not block. The only WAR

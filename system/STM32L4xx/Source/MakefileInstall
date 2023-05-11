@@ -1,0 +1,159 @@
+TOOLS    = \AppData\Local\Arduino15\packages\UltraProffie\tools\arm-none-eabi-gcc\9-2020-q2-update
+#TOOLS    = /opt/gcc-arm-none-eabi-9-2019-q4-major
+CPP      = $(TOOLS)/bin/arm-none-eabi-cpp
+CC       = $(TOOLS)/bin/arm-none-eabi-gcc
+CXX      = $(TOOLS)/bin/arm-none-eabi-g++
+AS       = $(TOOLS)/bin/arm-none-eabi-as
+AR       = $(TOOLS)/bin/arm-none-eabi-gcc-ar
+LD       = $(TOOLS)/bin/arm-none-eabi-ld
+OPTFLAGS= -mcpu=cortex-m4 -mthumb -c -g -Os -ffunction-sections -fdata-sections -nostdlib -MMD -ffast-math -flto
+CFLAGS   = $(OPTFLAGS) $(WARNINGS) -std=gnu11 $(EXTRAS) $(DEFINES) $(INCLUDES)
+CXXFLAGS = $(OPTFLAGS)mb -c -g -Os $(WARNINGS) -fno-threadsafe-statics -fno-rtti -fno-exceptions -MMD $(EXTRAS) $(DEFINES) $(INCLUDES)
+ASFLAGS  = -c -g -x assembler-with-cpp $(EXTRAS) $(DEFINES) $(INCLUDES)
+WARNINGS = -Wall -Wextra -Wno-unused-parameter
+EXTRAS   = -D__FPU_PRESENT=1 -march=armv7e-m -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mabi=aapcs -mslow-flash-data
+DEFINES  = 
+INCLUDES = \
+	-I../../../system/CMSIS/Include \
+	-I../../../system/CMSIS/Device/ST/STM32L4xx/Include \
+	-I../../../system/STM32L4xx/Source/DAP \
+	-I../../../system/STM32L4xx/Source/USB/HAL/Inc \
+	-I../../../system/STM32L4xx/Source/USB/Core/Inc \
+	-I../../../system/STM32L4xx/Source/USB/Class/CDC/Inc \
+	-I../../../system/STM32L4xx/Source/USB/Class/MSC/Inc \
+	-I../../../system/STM32L4xx/Source/USB/Class/HID/Inc \
+	-I../../../system/STM32L4xx/Source/USB/Class/WEBUSB/Inc \
+	-I../../../system/STM32L4xx/Source/USB \
+	-I../../../system/STM32L4xx/Include \
+	-I. 
+
+BSRCS = boot_stm32l4xx.c
+
+LSRCS = \
+	./DAP/DAP.c \
+	./DAP/SW_DP.c \
+	./USB/Class/CDC/Src/usbd_cdc.c \
+	./USB/Class/WEBUSB/Src/usbd_webusb.c \
+	./USB/Class/MSC/Src/usbd_msc.c \
+	./USB/Class/MSC/Src/usbd_msc_bot.c \
+	./USB/Class/MSC/Src/usbd_msc_data.c \
+	./USB/Class/MSC/Src/usbd_msc_scsi.c \
+	./USB/Class/HID/Src/usbd_hid.c \
+	./USB/Core/Src/usbd_core.c \
+	./USB/Core/Src/usbd_ctlreq.c \
+	./USB/Core/Src/usbd_ioreq.c \
+	./USB/HAL/Src/stm32l4xx_hal_pcd.c \
+	./USB/HAL/Src/stm32l4xx_hal_pcd_ex.c \
+	./USB/HAL/Src/stm32l4xx_ll_usb.c \
+	./USB/usbd_cdc_msc.c \
+	./USB/usbd_conf.c \
+	./USB/usbd_desc.c \
+	armv7m_atomic.c \
+	armv7m_core.c \
+	armv7m_orchid.c \
+	armv7m_pendsv.c \
+	armv7m_rtlib.S \
+	armv7m_svcall.c \
+	armv7m_systick.c \
+	armv7m_timer.c \
+	dosfs_core.c \
+	dosfs_device.c \
+	dosfs_sflash.c \
+	dosfs_storage.c \
+	stm32l4_adc.c \
+	stm32l4_clib.c \
+	stm32l4_dac.c \
+	stm32l4_dma.c \
+	stm32l4_exti.c \
+	stm32l4_flash.c \
+	stm32l4_i2c.c \
+	stm32l4_iwdg.c \
+	stm32l4_gpio.c \
+	stm32l4_nvic.c \
+	stm32l4_qspi.c \
+	stm32l4_rtc.c \
+	stm32l4_sai.c \
+	stm32l4_sdmmc.c \
+	stm32l4_sdspi.c \
+	stm32l4_spi.c \
+	stm32l4_servo.c \
+	stm32l4_system.c \
+	stm32l4_timer.c \
+	stm32l4_uart.c \
+	stm32l4_usbd_cdc.c \
+	stm32l4_usbd_dap.c \
+	stm32l4_usbd_hid.c \
+	stm32l4_crc.c \
+	
+LSRCS_31 = \
+	./DAP/DAP.c \
+	./DAP/SW_DP.c \
+	armv7m_atomic.c \
+	armv7m_core.c \
+	armv7m_orchid.c \
+	armv7m_pendsv.c \
+	armv7m_rtlib.S \
+	armv7m_svcall.c \
+	armv7m_systick.c \
+	armv7m_timer.c \
+	dosfs_core.c \
+	dosfs_device.c \
+	dosfs_sflash.c \
+	dosfs_storage.c \
+	stm32l4_adc.c \
+	stm32l4_clib.c \
+	stm32l4_dac.c \
+	stm32l4_dma.c \
+	stm32l4_exti.c \
+	stm32l4_flash.c \
+	stm32l4_i2c.c \
+	stm32l4_iwdg.c \
+	stm32l4_gpio.c \
+	stm32l4_nvic.c \
+	stm32l4_qspi.c \
+	stm32l4_rtc.c \
+	stm32l4_sai.c \
+	stm32l4_sdmmc.c \
+	stm32l4_sdspi.c \
+	stm32l4_spi.c \
+	stm32l4_servo.c \
+	stm32l4_system.c \
+	stm32l4_timer.c \
+	stm32l4_uart.c \
+	stm32l4_usbd_cdc.c \
+	stm32l4_usbd_dap.c \
+	stm32l4_usbd_hid.c \
+	stm32l4_crc.c \
+
+BOBJS_L431 = $(patsubst %.c,_out/stm32l431/%.o,$(BSRCS))
+LSRCS_L431 = startup_stm32l431xx.S $(LSRCS_31) 
+LOBJS_L431 = $(patsubst %.S,_out/stm32l431/%.o,$(filter-out %.c,$(LSRCS_L431))) $(patsubst %.c,_out/stm32l431/%.o,$(filter-out %.S,$(LSRCS_L431)))
+
+all:: boot_stm32l431.o libstm32l431.a
+
+install: all
+	cp *.a *.o ../Lib
+
+boot_stm32l431.o:: $(BOBJS_L431)
+	$(LD) -r -o $@ $^
+
+libstm32l431.a:: $(LOBJS_L431)
+	$(AR) rcs $@ $^
+
+_out/stm32l431/%.o: %.c
+	-@mkdir -p $(dir $@)
+	$(CC) -DSTM32L431xx $(CFLAGS) -c $< -o $@
+
+_out/stm32l431/%.o: %.S
+	-@mkdir -p $(dir $@)
+	$(CC) -DSTM32L431xx $(ASFLAGS) -c $< -o $@
+
+
+
+clean::
+	rm -rf boot_stm32l431.o libstm32l431.a _out
+
+-include $(BOBJS_L431:.o=.d)
+
+-include $(LOBJS_L431:.o=.d)
+
